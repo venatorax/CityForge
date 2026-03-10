@@ -37,5 +37,10 @@ Money, demand, construction, buildings, storage and more, all in one place, no r
 
 ---
 
+## Changelog
+See [CHANGELOG.md](./CHANGELOG.md) for version history.
+
+---
+
 ## License
 © 2026 venatorax, View only. No use, modification or redistribution permitted without explicit written permission.
