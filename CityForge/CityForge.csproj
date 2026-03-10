@@ -1,0 +1,82 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Configurations>Debug;Release</Configurations>
+    <PublishConfigurationPath>Properties\PublishConfiguration.xml</PublishConfigurationPath>
+    <UISource>UI\dist\CityForge.mjs</UISource>
+    <PDXAccountDataPath>C:\Users\Anwender\OneDrive\Desktop\Cities_Modding\pdx_account.txt</PDXAccountDataPath>
+  </PropertyGroup>
+
+  <Import Project="$([System.Environment]::GetEnvironmentVariable('CSII_TOOLPATH', 'EnvironmentVariableTarget.User'))\Mod.props" />
+  <Import Project="$([System.Environment]::GetEnvironmentVariable('CSII_TOOLPATH', 'EnvironmentVariableTarget.User'))\Mod.targets" />
+
+  <ItemGroup>
+    <Reference Include="Game">                        <Private>false</Private> </Reference>
+    <Reference Include="Colossal.Core">               <Private>false</Private> </Reference>
+    <Reference Include="Colossal.Logging">            <Private>false</Private> </Reference>
+    <Reference Include="Colossal.IO.AssetDatabase">   <Private>false</Private> </Reference>
+    <Reference Include="Colossal.UI">                 <Private>false</Private> </Reference>
+    <Reference Include="Colossal.UI.Binding">         <Private>false</Private> </Reference>
+    <Reference Include="Colossal.Localization">       <Private>false</Private> </Reference>
+    <Reference Include="Colossal.PSI.Common">        <Private>false</Private> </Reference>
+    <Reference Include="Unity.InputSystem">           <Private>false</Private> </Reference>
+    <Reference Include="UnityEngine.CoreModule">      <Private>false</Private> </Reference>
+    <Reference Include="Unity.Burst">                 <Private>false</Private> </Reference>
+    <Reference Include="Unity.Collections">           <Private>false</Private> </Reference>
+    <Reference Include="Unity.Entities">              <Private>false</Private> </Reference>
+    <Reference Include="Unity.Mathematics">           <Private>false</Private> </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Update="System">      <Private>false</Private> </Reference>
+    <Reference Update="System.Core"> <Private>false</Private> </Reference>
+    <Reference Update="System.Data"> <Private>false</Private> </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="$(ModPropsFile)"    Link="Properties\Mod.props"    />
+    <None Include="$(ModTargetsFile)"  Link="Properties\Mod.targets"  />
+  </ItemGroup>
+
+  <Target Name="CopyBurstDllsToModsDir" AfterTargets="AfterBuild">
+    <PropertyGroup>
+      <_LocalLow>$([System.IO.Path]::GetFullPath('$(LOCALAPPDATA)\..\LocalLow'))</_LocalLow>
+      <_ModsDeployDir>$(_LocalLow)\Colossal Order\Cities Skylines II\Mods\$(AssemblyName)</_ModsDeployDir>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <_BurstNatives Include="$(OutputPath)Temp\$(AssemblyName)_win_x86_64.dll"    />
+      <_BurstNatives Include="$(OutputPath)Temp\$(AssemblyName)_mac_x86_64.bundle" />
+      <_BurstNatives Include="$(OutputPath)Temp\$(AssemblyName)_linux_x86_64.so"   />
+      <_BurstNatives Include="$(OutputPath)$(AssemblyName)_win_x86_64.dll"    />
+      <_BurstNatives Include="$(OutputPath)$(AssemblyName)_mac_x86_64.bundle" />
+      <_BurstNatives Include="$(OutputPath)$(AssemblyName)_linux_x86_64.so"   />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_BurstNativesExisting Include="@(_BurstNatives)" Condition="Exists('%(Identity)')" />
+    </ItemGroup>
+
+    <Warning Text="[CityForge] No Burst DLLs found - Burst compilation may have failed."
+             Condition="'@(_BurstNativesExisting)' == ''" />
+
+    <Copy SourceFiles="@(_BurstNativesExisting)"
+          DestinationFolder="$(OutputPath)"
+          SkipUnchangedFiles="true"
+          ContinueOnError="true" />
+
+    <Copy SourceFiles="@(_BurstNativesExisting)"
+          DestinationFolder="$(_ModsDeployDir)"
+          SkipUnchangedFiles="true"
+          ContinueOnError="true"
+          Condition="Exists('$(_ModsDeployDir)')" />
+
+    <Warning Text="[CityForge] Mods folder not found: $(_ModsDeployDir) - skipping copy."
+             Condition="!Exists('$(_ModsDeployDir)')" />
+  </Target>
+
+  <Target Name="BuildUI" AfterTargets="AfterBuild">
+    <Exec Command="npm run build" WorkingDirectory="$(ProjectDir)/UI" />
+  </Target>
+
+</Project>
