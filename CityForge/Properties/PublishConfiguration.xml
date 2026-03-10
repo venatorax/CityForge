@@ -1,0 +1,230 @@
+<Publish>
+	<ModId Value="137029" />
+	<DisplayName Value="CityForge" />
+	<ShortDescription Value="All-in-one cheat panel. Money, demand, construction, buildings, storage and more — all in one place, no restarts needed." />
+	<LongDescription>
+# **CityForge — All-in-One Cheat Panel**
+
+CityForge puts a button in your toolbar. Click it and a floating panel opens with every cheat you could want, organized into clear sections.
+
+Everything saves automatically and comes back exactly as you left it next session.
+
+Built for sandbox players, creative builders, and anyone who would rather focus on building than fighting the economy.
+
+---
+
+# **Money**
+
+Add or remove money instantly in fixed amounts:
+
+100K  
+1M  
+10M  
+50M  
+
+Or simply enable **Infinite Money** and never think about it again.
+
+---
+
+# **Milestones &amp; Development Tree**
+
+Advance to any specific milestone **(1–20)** or unlock all of them at once.
+
+Keep them permanently unlocked so the game cannot take them back.
+
+One button also grants **228 development tree points**.
+
+---
+
+# **Demand**
+
+Override residential demand separately for:
+
+Low Density  
+Medium Density  
+High Density  
+
+Commercial, Industrial and Office demand each have their own sliders.
+
+Each zone also includes a **Force Build** toggle that ignores demand entirely and forces buildings to grow — perfect when the AI refuses to cooperate.
+
+---
+
+# **Construction Time**
+
+**Instant Construction** completes everything the moment you place it.
+
+If that is too extreme, choose one of four speed levels:
+
+Normal  
+2×  
+4×  
+Instant  
+
+Switch between them anytime without restarting the game.
+
+---
+
+# **Citizens &amp; Tourism**
+
+Boost move-in speed with a multiplier up to **10×** so your zones actually fill up.
+
+Apply the same boost to tourists.
+
+Additional options include:
+
+• **Max Happiness** — keeps every citizen permanently happy  
+• **Rich Citizens** — gives every household 500,000 money every few in-game minutes
+
+---
+
+# **Buildings &amp; Storage**
+
+Upgrade **every building in your city to level 5** with a single click.
+
+The upgrade process runs in small batches in the background so the game stays smooth.
+
+You can also:
+
+• Fill all storage instantly  
+• Keep storage permanently full  
+• Set all companies to **100% efficiency**
+
+---
+
+# **General**
+
+Optional setting to **reset all cheats when loading a new city**, so you always start fresh.
+
+Everything else persists exactly as you left it.
+
+Fully translated into:
+
+English  
+German  
+French  
+Spanish
+
+Bug reports and feedback are always welcome.
+
+---
+
+# **CityForge — Alles-in-einem Cheat-Panel**
+
+CityForge fügt einen Button in die Toolbar ein. Ein Klick öffnet ein schwebendes Panel mit allen Cheats — übersichtlich in Bereiche aufgeteilt.
+
+Alle Einstellungen werden automatisch gespeichert und beim nächsten Start genau so wiederhergestellt.
+
+Für Sandbox-Spieler, entspannte Stadtbauer und alle, die lieber bauen als gegen die Wirtschaft anzukämpfen.
+
+---
+
+# **Geld**
+
+Beliebige Beträge sofort einzahlen oder abziehen:
+
+100K  
+1M  
+10M  
+50M  
+
+Oder einfach **Unendlich Geld** aktivieren.
+
+---
+
+# **Meilensteine &amp; Entwicklungsbaum**
+
+Bis zu einem bestimmten **Meilenstein (1–20)** vorspulen oder alle gleichzeitig freischalten.
+
+Mit **dauerhaft entsperrt halten** kann das Spiel sie nicht mehr wegnehmen.
+
+Zusätzlich erhältst du **228 Entwicklungsbaum-Punkte**.
+
+---
+
+# **Nachfrage**
+
+Wohnnachfrage getrennt überschreiben für:
+
+Niedrige Dichte  
+Mittlere Dichte  
+Hohe Dichte  
+
+Gewerbe, Industrie und Büros haben jeweils eigene Regler.
+
+Zusätzlich besitzt jede Zone eine **„Sofort bauen“-Option**, die Gebäude unabhängig von der Nachfrage entstehen lässt.
+
+---
+
+# **Bauzeit**
+
+**Sofortbau** lässt alles direkt nach dem Platzieren fertig werden.
+
+Alternativ stehen vier Geschwindigkeitsstufen zur Verfügung:
+
+Normal  
+2×  
+4×  
+Sofort  
+
+Jederzeit umschaltbar — ohne Neustart.
+
+---
+
+# **Bürger &amp; Tourismus**
+
+Die Einzugsrate kann mit bis zu **10×** erhöht werden, damit Gebäude schneller voll werden.
+
+Dasselbe gilt für Touristen.
+
+Weitere Optionen:
+
+• **Maximale Zufriedenheit** – alle Bürger bleiben dauerhaft glücklich  
+• **Reiche Bürger** – jeder Haushalt erhält alle paar Spielminuten 500.000 Geld
+
+---
+
+# **Gebäude &amp; Lager**
+
+Alle Gebäude der Stadt mit **einem Klick auf Stufe 5 upgraden**.
+
+Die Verarbeitung erfolgt in kleinen Batches im Hintergrund, damit das Spiel flüssig bleibt.
+
+Zusätzlich kannst du:
+
+• Alle Lager sofort auffüllen  
+• Lager dauerhaft voll halten  
+• Alle Unternehmen auf **100 % Effizienz** setzen
+
+---
+
+# **Allgemein**
+
+Optional können **alle Cheats beim Laden einer neuen Karte zurückgesetzt** werden.
+
+Alles andere bleibt genau so gespeichert, wie du es verlassen hast.
+
+Vollständig übersetzt in:
+
+Englisch  
+Deutsch  
+Französisch  
+Spanisch
+
+Bugreports und Feedback sind jederzeit willkommen.
+</LongDescription>
+<Thumbnail Value="Assets/Thumbnail.png" />
+<Screenshot Value="Assets/Screenshot1.png" />
+<Screenshot Value="Assets/Screenshot2.png" />
+<Screenshot Value="Assets/Screenshot3.png" />
+<Screenshot Value="Assets/Screenshot4.png" />
+	<Tag Value="Code Mod" />
+	<ForumLink Value="https://forum.paradoxplaza.com/forum/threads/cheatbox-cheat-panel-for-money-demand-construction-more.1906532/" />
+	<ModVersion Value="1.0.8" />
+	<GameVersion Value="1.*.*" />
+	<Dependency Id="" />
+	<RequiredDLC Value="" />
+	<ChangeLog Value="v1.0.8&#10;&#10;BUG FIXES&#10;&#10;• Fixed a compatibility issue with AllAboard (and possibly other mods) that could cause an error when loading a map. Both mods were trying to save their settings at the same time. CityForge now waits and retries automatically if that happens." />
+	<ExternalLink Type="" Url="" />
+	<AccessLevel Value="Public" />
+</Publish>
