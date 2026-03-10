@@ -18,14 +18,19 @@ Money, demand, construction, buildings, storage and more, all in one place, no r
 ---
 
 ## Screenshots
-<img width="1920" height="1080" alt="Screenshot1" src="https://github.com/user-attachments/assets/411f67f9-7e5a-41b5-b92f-353e70e3176d" />
-<img width="875" height="1041" alt="Screenshot2" src="https://github.com/user-attachments/assets/3f089e49-0723-49da-a8c5-d50b81277eda" />
-<img width="890" height="1049" alt="Screenshot3" src="https://github.com/user-attachments/assets/302ffefd-c0a7-4e78-a271-f4f5feb08901" />
-<img width="1762" height="1024" alt="Screenshot4" src="https://github.com/user-attachments/assets/9220b058-22ed-47ac-9c6a-4050dd20f549" />
+<img width="1920" height="1080" alt="Screenshot1" src="https://github.com/user-attachments/assets/fde7913d-58ac-475a-af6b-b9b0acc8503f" />
+
+<img width="875" height="1041" alt="Screenshot2" src="https://github.com/user-attachments/assets/98882629-caf6-4f6f-9fd1-8ead6b4924fb" />
+
+<img width="890" height="1049" alt="Screenshot3" src="https://github.com/user-attachments/assets/7654b5fa-b6a9-4937-a09c-c319759ed9d1" />
+
+<img width="1762" height="1024" alt="Screenshot4" src="https://github.com/user-attachments/assets/74903d73-a2d1-40f3-b378-da995f46a3b3" />
+
 
 ---
 
 ## Installation
+
 1. Subscribe on [Paradox Mods](https://mods.paradoxplaza.com)
 2. Enable the mod in the in-game mod manager
 3. Launch Cities: Skylines 2
