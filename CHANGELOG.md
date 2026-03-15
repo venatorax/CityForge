@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.0.10 — Released 2026-03-15
+
+### Bug Fixes
+- Fixed mouse cursor being blocked in the game UI (road upgrades, building menus, etc.) after interacting with the CityForge panel. Introduced in v1.0.9.
+
+---
+
 ## v1.0.9 — Released 2026-03-15
 
 ### New
