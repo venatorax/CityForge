@@ -24,17 +24,17 @@ Money, milestones, demand, construction, citizens, buildings, storage and more â
 ---
 
 ## Screenshots
-<img width="1456" height="816" alt="CityForge Toolbar Button" src="https://github.com/user-attachments/assets/SCREENSHOT1" />
+<img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/45eaf9b6-a9c7-4fb5-9169-6378e32d4b90" />
 
-<img width="1456" height="816" alt="CityForge Panel Overview" src="https://github.com/user-attachments/assets/SCREENSHOT2" />
+<img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/0306db33-5379-4f63-b22e-92bdc9d76970" />
 
-<img width="1456" height="816" alt="CityForge Population & Tourism" src="https://github.com/user-attachments/assets/SCREENSHOT3" />
+<img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/61c86c0b-0e11-404a-8561-067e2356ba59" />
 
-<img width="1456" height="816" alt="CityForge Demand Section" src="https://github.com/user-attachments/assets/SCREENSHOT4" />
+<img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/19c20075-82e1-450b-ba86-14468f90cf6a" />
 
-<img width="1456" height="816" alt="CityForge Settings" src="https://github.com/user-attachments/assets/SCREENSHOT5" />
+<img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/b2f97074-ddd9-4108-81f3-7ca4fa803e6a" />
 
-<img width="1456" height="816" alt="CityForge Appearance" src="https://github.com/user-attachments/assets/SCREENSHOT6" />
+<img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/b5f0d41e-3bbf-4350-bd83-ad3604f6edf3" />
 
 ---
 
