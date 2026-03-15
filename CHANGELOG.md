@@ -5,6 +5,7 @@
 ### New
 - **Max Education** — sets all citizens to the highest education level (Level 4). Found in the Population & Tourism section.
 - **Keep Achievements Enabled** — achievements stay active even with mods loaded. Toggle in the mod settings. Disabled while a city is loaded to prevent conflicts.
+- **Appearance** — customize the panel background color with presets or a custom hex value. The panel is freely draggable and resizable.
 
 ### Bug Fixes
 - Fixed mouse getting stuck after dragging the CityForge panel — clicks in the game UI were blocked until the game was restarted.
