@@ -40,9 +40,9 @@ Money, milestones, demand, construction, citizens, buildings, storage and more â
 
 ## Installation
 
-1. Subscribe on [Paradox Mods](https://mods.paradoxplaza.com/mods/137029/Windows)
-2. Enable the mod in the in-game mod manager
-3. Launch Cities: Skylines 2
+1. Subscribe on Paradox Mods
+2. Launch Cities: Skylines 2
+3. Enable the mod in the in-game mod manager
 
 ---
 
