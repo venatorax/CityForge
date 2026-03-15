@@ -238,11 +238,11 @@ Bugreports und Feedback sind jederzeit willkommen.
 <Screenshot Value="Assets/Screenshot6.png" />
 	<Tag Value="Code Mod" />
 	<ForumLink Value="https://forum.paradoxplaza.com/forum/threads/cheatbox-cheat-panel-for-money-demand-construction-more.1906532/" />
-	<ModVersion Value="1.0.9" />
+	<ModVersion Value="1.0.10" />
 	<GameVersion Value="1.*.*" />
 	<Dependency Id="" />
 	<RequiredDLC Value="" />
-	<ChangeLog Value="v1.0.9&#10;&#10;NEW&#10;&#10;• Max Education — sets all citizens to the highest education level&#10;• Keep achievements enabled even with mods active (toggle in settings)&#10;&#10;BUG FIXES&#10;&#10;• Fixed mouse getting stuck after dragging the panel&#10;• Various small fixes" />
+	<ChangeLog Value="v1.0.10&#10;&#10;BUG FIXES&#10;&#10;• Fixed mouse cursor being blocked in the game UI (road upgrades, building menus, etc.) after interacting with the CityForge panel. Introduced in v1.0.9." />
 	<ExternalLink Type="github" Url="https://github.com/venatorax/CityForge" />
 	<AccessLevel Value="Public" />
 </Publish>
