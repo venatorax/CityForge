@@ -676,7 +676,7 @@ function Slider({value,label,onChange,min=0,max=100}:{value:number;label?:string
   const onChangeRef=useRef(onChange);
   onChangeRef.current=onChange;
   const onMouseDown=useCallback((e:React.MouseEvent)=>{
-    e.stopPropagation();e.preventDefault();
+    e.stopPropagation();
     const calc=(clientX:number)=>{
       const el=trackRef.current;if(!el)return;
       const r=el.getBoundingClientRect();
@@ -684,7 +684,7 @@ function Slider({value,label,onChange,min=0,max=100}:{value:number;label?:string
       onChangeRef.current(Math.round(min+pct*(max-min)));
     };
     calc(e.clientX);
-    const mv=(ev:MouseEvent)=>{ev.preventDefault();calc(ev.clientX);};
+    const mv=(ev:MouseEvent)=>{calc(ev.clientX);};
     const up=()=>{window.removeEventListener("mousemove",mv);window.removeEventListener("mouseup",up);};
     window.addEventListener("mousemove",mv);window.addEventListener("mouseup",up);
   },[min,max]);
@@ -815,7 +815,7 @@ function BuildingsSection({t,maxCompanyEfficiency,resetOnNewMap,buildingLevelAva
 function ResizeHandle({onResize}:{onResize:(dx:number,dy:number)=>void;}) {
   const [hov,setHov]=useState(false);
   const onMouseDown=useCallback((e:React.MouseEvent)=>{
-    e.stopPropagation();e.preventDefault();
+    e.stopPropagation();
     let lx=e.clientX,ly=e.clientY;
     const mv=(ev:MouseEvent)=>{onResize(ev.clientX-lx,ev.clientY-ly);lx=ev.clientX;ly=ev.clientY;};
     const up=()=>{window.removeEventListener("mousemove",mv);window.removeEventListener("mouseup",up);};
@@ -908,7 +908,6 @@ function CityForgePanel() {
   sizeRef.current = size;
 
   const onHeaderMouseDown=useCallback((e:React.MouseEvent)=>{
-    e.preventDefault();
     const ox=e.clientX-pos.x, oy=e.clientY-pos.y;
     const mv=(me:MouseEvent)=>{
       const s=sizeRef.current;
