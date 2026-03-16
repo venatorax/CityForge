@@ -13,7 +13,7 @@ Money, milestones, demand, construction, citizens, buildings, storage and more �
 - 🌳 **Development Tree** — grant 228 points instantly
 - 📈 **Demand** — override residential (low/medium/high), commercial, industrial and office demand separately; Force Build ignores demand entirely
 - 🏗️ **Construction** — instant build or 4 adjustable speed levels
-- 👥 **Citizens & Tourism** — boost move-in rate and tourists, max happiness, rich citizens, max education
+- 👥 **Citizens & Tourism** — boost move-in rate and tourists, max happiness, rich citizens, max education, education distribution
 - 🏢 **Buildings** — upgrade all buildings to level 5, max company efficiency
 - 📦 **Storage** — fill all storage instantly or keep it permanently full
 - 🎨 **Appearance** — customize the panel background color with presets or a custom hex value
@@ -40,7 +40,7 @@ Money, milestones, demand, construction, citizens, buildings, storage and more �
 
 ## Installation
 
-1. Subscribe on Paradox Mods
+1. Subscribe on [Paradox Mods](https://mods.paradoxplaza.com/mods/137029/Windows)
 2. Launch Cities: Skylines 2
 3. Enable the mod in the in-game mod manager
 
