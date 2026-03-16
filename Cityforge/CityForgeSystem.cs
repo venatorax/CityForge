@@ -859,6 +859,8 @@ namespace CityForge
                 var money = EntityManager.GetComponentData<PlayerMoney>(cityEntity);
                 var credit = EntityManager.GetComponentData<Creditworthiness>(cityEntity);
 
+                int baselineXP = 0; 
+
                 try
                 {
                     for (int i = levelSingleton.m_AchievedMilestone; i < milestoneDataArr.Length; i++)
@@ -869,6 +871,7 @@ namespace CityForge
                         levelSingleton.m_AchievedMilestone = math.max(levelSingleton.m_AchievedMilestone, milestoneDataArr[i].m_Index);
                         money.Add(milestoneDataArr[i].m_Reward);
                         credit.m_Amount += milestoneDataArr[i].m_LoanLimit;
+                        baselineXP = milestoneDataArr[i].m_XpRequried; 
                     }
                 }
                 finally { milestoneEntities.Dispose(); milestoneDataArr.Dispose(); }
@@ -876,8 +879,15 @@ namespace CityForge
                 _milestoneLevelGroup.SetSingleton(levelSingleton);
                 EntityManager.SetComponentData(cityEntity, money);
                 EntityManager.SetComponentData(cityEntity, credit);
+
+                
+                if (EntityManager.HasComponent<XP>(cityEntity))
+                {
+                    EntityManager.SetComponentData(cityEntity, new XP { m_XP = baselineXP });
+                }
+
                 _lastKnownAchievedMilestone = levelSingleton.m_AchievedMilestone;
-                Mod.log.Info($"Milestones advanced to {levelSingleton.m_AchievedMilestone}.");
+                Mod.log.Info($"Milestones advanced to {levelSingleton.m_AchievedMilestone}, XP baseline set to {baselineXP}.");
             }
             catch (Exception e) { Mod.log.Warn($"ApplyMilestoneTo({target}): {e.Message}"); }
         }
