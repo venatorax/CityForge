@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.0.11 — Released 2026-03-16
+
+### New
+- **Education Distribution** — 5 sliders to set custom percentages for each education level (Uneducated, Poorly Educated, Educated, Well Educated, Highly Educated) across all citizens.
+
+### Bug Fixes
+- Reduced periodic lag spikes when Move-In Boost or Tourist Boost are active.
+- Fixed panel occasionally blocking game UI clicks after being interacted with.
+- Fixed a rare issue where loading a city could unexpectedly advance milestones when achievements were enabled.
+
+---
+
 ## v1.0.10 — Released 2026-03-15
 
 ### Bug Fixes
