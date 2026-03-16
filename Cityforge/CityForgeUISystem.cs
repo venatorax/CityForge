@@ -41,6 +41,12 @@ namespace CityForge
         private ValueBinding<bool> _maxHappiness;
         private ValueBinding<bool> _richCitizens;
         private ValueBinding<bool> _maxEducation;
+        private ValueBinding<bool> _overrideEducation;
+        private ValueBinding<int> _eduLevel0;
+        private ValueBinding<int> _eduLevel1;
+        private ValueBinding<int> _eduLevel2;
+        private ValueBinding<int> _eduLevel3;
+        private ValueBinding<int> _eduLevel4;
         private ValueBinding<bool> _maxCompanyEfficiency;
         private ValueBinding<bool> _resetOnNewMap;
         private ValueBinding<bool> _buildingLevelAvailable;
@@ -81,6 +87,12 @@ namespace CityForge
             AddBinding(_maxHappiness = new ValueBinding<bool>(MOD, "MaxHappiness", s.MaxHappiness));
             AddBinding(_richCitizens = new ValueBinding<bool>(MOD, "RichCitizens", s.RichCitizens));
             AddBinding(_maxEducation = new ValueBinding<bool>(MOD, "MaxEducation", s.MaxEducation));
+            AddBinding(_overrideEducation = new ValueBinding<bool>(MOD, "OverrideEducation", s.OverrideEducation));
+            AddBinding(_eduLevel0 = new ValueBinding<int>(MOD, "EduLevel0", s.EduLevel0));
+            AddBinding(_eduLevel1 = new ValueBinding<int>(MOD, "EduLevel1", s.EduLevel1));
+            AddBinding(_eduLevel2 = new ValueBinding<int>(MOD, "EduLevel2", s.EduLevel2));
+            AddBinding(_eduLevel3 = new ValueBinding<int>(MOD, "EduLevel3", s.EduLevel3));
+            AddBinding(_eduLevel4 = new ValueBinding<int>(MOD, "EduLevel4", s.EduLevel4));
             AddBinding(_maxCompanyEfficiency = new ValueBinding<bool>(MOD, "MaxCompanyEfficiency", s.MaxCompanyEfficiency));
             AddBinding(_resetOnNewMap = new ValueBinding<bool>(MOD, "ResetOnNewMap", s.ResetOnNewMap));
             AddBinding(_buildingLevelAvailable = new ValueBinding<bool>(MOD, "BuildingLevelAvailable", false));
@@ -163,6 +175,13 @@ namespace CityForge
                 v => UpdateAndSave(_richCitizens, v, val => Mod.Setting.RichCitizens = val)));
             AddBinding(new TriggerBinding<bool>(MOD, "SetMaxEducation",
                 v => UpdateAndSave(_maxEducation, v, val => Mod.Setting.MaxEducation = val)));
+            AddBinding(new TriggerBinding<bool>(MOD, "SetOverrideEducation",
+                v => UpdateAndSave(_overrideEducation, v, val => Mod.Setting.OverrideEducation = val)));
+            AddBinding(new TriggerBinding<int>(MOD, "SetEduLevel0", v => UpdateAndSave(_eduLevel0, Math.Max(0, Math.Min(100, v)), val => Mod.Setting.EduLevel0 = val)));
+            AddBinding(new TriggerBinding<int>(MOD, "SetEduLevel1", v => UpdateAndSave(_eduLevel1, Math.Max(0, Math.Min(100, v)), val => Mod.Setting.EduLevel1 = val)));
+            AddBinding(new TriggerBinding<int>(MOD, "SetEduLevel2", v => UpdateAndSave(_eduLevel2, Math.Max(0, Math.Min(100, v)), val => Mod.Setting.EduLevel2 = val)));
+            AddBinding(new TriggerBinding<int>(MOD, "SetEduLevel3", v => UpdateAndSave(_eduLevel3, Math.Max(0, Math.Min(100, v)), val => Mod.Setting.EduLevel3 = val)));
+            AddBinding(new TriggerBinding<int>(MOD, "SetEduLevel4", v => UpdateAndSave(_eduLevel4, Math.Max(0, Math.Min(100, v)), val => Mod.Setting.EduLevel4 = val)));
 
             AddBinding(new TriggerBinding(MOD, "UpgradeAllBuildings", () =>
                 CityForgeSystem.Instance?.RequestUpgradeAllBuildings()));
@@ -234,6 +253,12 @@ namespace CityForge
             _maxHappiness.Update(s.MaxHappiness);
             _richCitizens.Update(s.RichCitizens);
             _maxEducation.Update(s.MaxEducation);
+            _overrideEducation.Update(s.OverrideEducation);
+            _eduLevel0.Update(s.EduLevel0);
+            _eduLevel1.Update(s.EduLevel1);
+            _eduLevel2.Update(s.EduLevel2);
+            _eduLevel3.Update(s.EduLevel3);
+            _eduLevel4.Update(s.EduLevel4);
             _maxCompanyEfficiency.Update(s.MaxCompanyEfficiency);
             _keepStorageFull.Update(false);
         }
