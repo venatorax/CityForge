@@ -304,12 +304,14 @@ namespace CityForge
             if (s.MaxHappiness && !_citizenQuery.IsEmpty) ApplyMaxHappiness();
 
             if (s.MaxEducation && !_citizenQuery.IsEmpty) ApplyMaxEducation();
+            if (s.OverrideEducation && _frameCount % 300u == 0 && !_citizenQuery.IsEmpty)
+                ApplyEducationDistribution(s.EduLevel0, s.EduLevel1, s.EduLevel2, s.EduLevel3, s.EduLevel4);
 
             if (s.RichCitizens && _frameCount % 300u == 0 && !_householdWithResourcesQuery.IsEmpty)
                 ApplyRichCitizens();
 
-            if (_frameCount % 180u == 0) ApplyAttractivenessBoost(s);
-            if (_demandParamQueryReady && _frameCount % 180u == 0) ApplyDemandParamBoost(s);
+            if (_frameCount % 600u == 0) ApplyAttractivenessBoost(s);
+            if (_demandParamQueryReady && _frameCount % 600u == 0) ApplyDemandParamBoost(s);
 
             if (s.MaxCompanyEfficiency)
             {
@@ -380,6 +382,44 @@ namespace CityForge
         {
             Dependency = new MaxEducationJob { CitizenHandle = _citizenTypeHandle }
                 .ScheduleParallel(_citizenQuery, Dependency);
+        }
+
+        [BurstCompile]
+        private struct EducationDistributionJob : IJobChunk
+        {
+            public ComponentTypeHandle<Citizen> CitizenHandle;
+            public ushort T0, T1, T2, T3;
+            public void Execute(in ArchetypeChunk chunk, int unfilteredChunkIndex,
+                                bool useEnabledMask, in v128 chunkEnabledMask)
+            {
+                var citizens = chunk.GetNativeArray(ref CitizenHandle);
+                for (int i = 0; i < citizens.Length; i++)
+                {
+                    var c = citizens[i];
+                    ushort r = c.m_PseudoRandom;
+                    int level = r < T0 ? 0 : r < T1 ? 1 : r < T2 ? 2 : r < T3 ? 3 : 4;
+                    c.SetEducationLevel(level);
+                    citizens[i] = c;
+                }
+            }
+        }
+
+        private void ApplyEducationDistribution(int p0, int p1, int p2, int p3, int p4)
+        {
+            int total = p0 + p1 + p2 + p3 + p4;
+            if (total <= 0) return;
+            ushort t0 = (ushort)((long)p0 * 65535 / total);
+            ushort t1 = (ushort)((long)(p0 + p1) * 65535 / total);
+            ushort t2 = (ushort)((long)(p0 + p1 + p2) * 65535 / total);
+            ushort t3 = (ushort)((long)(p0 + p1 + p2 + p3) * 65535 / total);
+            Dependency = new EducationDistributionJob
+            {
+                CitizenHandle = _citizenTypeHandle,
+                T0 = t0,
+                T1 = t1,
+                T2 = t2,
+                T3 = t3
+            }.ScheduleParallel(_citizenQuery, Dependency);
         }
 
         [BurstCompile]
