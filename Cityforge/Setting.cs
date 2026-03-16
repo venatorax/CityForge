@@ -54,6 +54,12 @@ namespace CityForge
         [SettingsUIHidden] public bool MaxHappiness { get; set; } = false;
         [SettingsUIHidden] public bool RichCitizens { get; set; } = false;
         [SettingsUIHidden] public bool MaxEducation { get; set; } = false;
+        [SettingsUIHidden] public bool OverrideEducation { get; set; } = false;
+        [SettingsUIHidden] public int EduLevel0 { get; set; } = 10;
+        [SettingsUIHidden] public int EduLevel1 { get; set; } = 20;
+        [SettingsUIHidden] public int EduLevel2 { get; set; } = 30;
+        [SettingsUIHidden] public int EduLevel3 { get; set; } = 25;
+        [SettingsUIHidden] public int EduLevel4 { get; set; } = 15;
         [SettingsUIHidden] public bool MaxCompanyEfficiency { get; set; } = false;
 
         [SettingsUIHidden] public bool ResetOnNewMap { get; set; } = true;
@@ -96,6 +102,12 @@ namespace CityForge
             MaxHappiness = false;
             RichCitizens = false;
             MaxEducation = false;
+            OverrideEducation = false;
+            EduLevel0 = 10;
+            EduLevel1 = 20;
+            EduLevel2 = 30;
+            EduLevel3 = 25;
+            EduLevel4 = 15;
             MaxCompanyEfficiency = false;
         }
 
@@ -129,6 +141,13 @@ namespace CityForge
             RichCitizens = false;
             MaxEducation = false;
             MaxEducation = false;
+            MaxEducation = false;
+            OverrideEducation = false;
+            EduLevel0 = 10;
+            EduLevel1 = 20;
+            EduLevel2 = 30;
+            EduLevel3 = 25;
+            EduLevel4 = 15;
             MaxCompanyEfficiency = false;
         }
 
@@ -176,6 +195,12 @@ namespace CityForge
                     { "CheatMod.OPTION[MaxHappiness]",      "Max Citizen Happiness"        },
                     { "CheatMod.OPTION[RichCitizens]",      "Rich Citizens"                },
                     { "CheatMod.OPTION[MaxEducation]",     "Max Education"  },
+                    { "CheatMod.OPTION[OverrideEducation]", "Education Distribution"  },
+                    { "CheatMod.LEVEL[Uneducated]",        "Uneducated"  },
+                    { "CheatMod.LEVEL[PoorlyEducated]",    "Poorly Educated"  },
+                    { "CheatMod.LEVEL[Educated]",          "Educated"  },
+                    { "CheatMod.LEVEL[WellEducated]",      "Well Educated"  },
+                    { "CheatMod.LEVEL[HighlyEducated]",    "Highly Educated"  },
                     { "CheatMod.SECTION[Buildings]",        "Buildings"                    },
                     { "CheatMod.ACTION[UpgradeAll]",        "Upgrade All to Level 5"       },
                     { "CheatMod.OPTION[MaxEfficiency]",     "Max Company Efficiency"       },
@@ -260,6 +285,12 @@ namespace CityForge
                     { "CheatMod.OPTION[MaxHappiness]",      "Maximale B\u00fcrgerzufriedenheit"        },
                     { "CheatMod.OPTION[RichCitizens]",      "Reiche B\u00fcrger"                      },
                     { "CheatMod.OPTION[MaxEducation]",     "Maximale Bildung"  },
+                    { "CheatMod.OPTION[OverrideEducation]", "Bildungsverteilung"  },
+                    { "CheatMod.LEVEL[Uneducated]",        "Ungebildet"  },
+                    { "CheatMod.LEVEL[PoorlyEducated]",    "Wenig gebildet"  },
+                    { "CheatMod.LEVEL[Educated]",          "Gebildet"  },
+                    { "CheatMod.LEVEL[WellEducated]",      "Gut gebildet"  },
+                    { "CheatMod.LEVEL[HighlyEducated]",    "Hochgebildet"  },
                     { "CheatMod.SECTION[Buildings]",        "Geb\u00e4ude"                            },
                     { "CheatMod.ACTION[UpgradeAll]",        "Alle auf Stufe 5 upgraden"               },
                     { "CheatMod.OPTION[MaxEfficiency]",     "Max. Unternehmenseffizienz"              },
@@ -351,6 +382,12 @@ namespace CityForge
                     { "CheatMod.OPTION[MaxHappiness]",      "Bonheur maximum"                         },
                     { "CheatMod.OPTION[RichCitizens]",      "Citoyens riches"                         },
                     { "CheatMod.OPTION[MaxEducation]",     "Éducation maximale"  },
+                    { "CheatMod.OPTION[OverrideEducation]", "Répartition de l'éducation"  },
+                    { "CheatMod.LEVEL[Uneducated]",        "Sans éducation"  },
+                    { "CheatMod.LEVEL[PoorlyEducated]",    "Peu éduqué"  },
+                    { "CheatMod.LEVEL[Educated]",          "Éduqué"  },
+                    { "CheatMod.LEVEL[WellEducated]",      "Bien éduqué"  },
+                    { "CheatMod.LEVEL[HighlyEducated]",    "Très éduqué"  },
                     { "CheatMod.SECTION[Buildings]",        "B\u00e2timents"                          },
                     { "CheatMod.ACTION[UpgradeAll]",        "Tout upgrader niveau 5"                  },
                     { "CheatMod.OPTION[MaxEfficiency]",     "Efficacit\u00e9 max entreprises"         },
@@ -435,6 +472,12 @@ namespace CityForge
                     { "CheatMod.OPTION[MaxHappiness]",      "Felicidad m\u00e1xima ciudadana"     },
                     { "CheatMod.OPTION[RichCitizens]",      "Ciudadanos ricos"                    },
                     { "CheatMod.OPTION[MaxEducation]",     "Educación máxima"  },
+                    { "CheatMod.OPTION[OverrideEducation]", "Distribución educativa"  },
+                    { "CheatMod.LEVEL[Uneducated]",        "Sin educación"  },
+                    { "CheatMod.LEVEL[PoorlyEducated]",    "Poco educado"  },
+                    { "CheatMod.LEVEL[Educated]",          "Educado"  },
+                    { "CheatMod.LEVEL[WellEducated]",      "Bien educado"  },
+                    { "CheatMod.LEVEL[HighlyEducated]",    "Altamente educado"  },
                     { "CheatMod.SECTION[Buildings]",        "Edificios"                           },
                     { "CheatMod.ACTION[UpgradeAll]",        "Mejorar todo a nivel 5"              },
                     { "CheatMod.OPTION[MaxEfficiency]",     "Eficiencia m\u00e1x empresas"        },
@@ -519,6 +562,12 @@ namespace CityForge
                     { "CheatMod.OPTION[MaxHappiness]",      "Felicit\u00e0 massima"               },
                     { "CheatMod.OPTION[RichCitizens]",      "Cittadini ricchi"                    },
                     { "CheatMod.OPTION[MaxEducation]",     "Istruzione massima"  },
+                    { "CheatMod.OPTION[OverrideEducation]", "Distribuzione istruzione"  },
+                    { "CheatMod.LEVEL[Uneducated]",        "Non istruito"  },
+                    { "CheatMod.LEVEL[PoorlyEducated]",    "Poco istruito"  },
+                    { "CheatMod.LEVEL[Educated]",          "Istruito"  },
+                    { "CheatMod.LEVEL[WellEducated]",      "Ben istruito"  },
+                    { "CheatMod.LEVEL[HighlyEducated]",    "Altamente istruito"  },
                     { "CheatMod.SECTION[Buildings]",        "Edifici"                             },
                     { "CheatMod.ACTION[UpgradeAll]",        "Tutto a livello 5"                   },
                     { "CheatMod.OPTION[MaxEfficiency]",     "Efficienza max aziende"              },
@@ -603,6 +652,12 @@ namespace CityForge
                     { "CheatMod.OPTION[MaxHappiness]",      "\u5e02\u6c11\u306e\u5e78\u798f\u5ea6\u6700\u5927" },
                     { "CheatMod.OPTION[RichCitizens]",      "\u88d5\u798f\u306a\u5e02\u6c11"   },
                     { "CheatMod.OPTION[MaxEducation]",     "最高教育レベル"  },
+                    { "CheatMod.OPTION[OverrideEducation]", "教育分布"  },
+                    { "CheatMod.LEVEL[Uneducated]",        "無教育"  },
+                    { "CheatMod.LEVEL[PoorlyEducated]",    "低教育"  },
+                    { "CheatMod.LEVEL[Educated]",          "普通教育"  },
+                    { "CheatMod.LEVEL[WellEducated]",      "高教育"  },
+                    { "CheatMod.LEVEL[HighlyEducated]",    "最高教育"  },
                     { "CheatMod.SECTION[Buildings]",        "\u5efa\u7269"                     },
                     { "CheatMod.ACTION[UpgradeAll]",        "\u3059\u3079\u3066\u30ec\u30d9\u30eb5\u306b\u30a2\u30c3\u30d7\u30b0\u30ec\u30fc\u30c9" },
                     { "CheatMod.OPTION[MaxEfficiency]",     "\u4f01\u696d\u52b9\u7387\u6700\u5927" },
@@ -687,6 +742,12 @@ namespace CityForge
                     { "CheatMod.OPTION[MaxHappiness]",      "\uc2dc\ubbfc \ud589\ubcf5\ub3c4 \ucd5c\ub300" },
                     { "CheatMod.OPTION[RichCitizens]",      "\ubd80\uc720\ud55c \uc2dc\ubbfc"  },
                     { "CheatMod.OPTION[MaxEducation]",     "최대 교육"  },
+                    { "CheatMod.OPTION[OverrideEducation]", "교육 분포"  },
+                    { "CheatMod.LEVEL[Uneducated]",        "무학력"  },
+                    { "CheatMod.LEVEL[PoorlyEducated]",    "낙은 학력"  },
+                    { "CheatMod.LEVEL[Educated]",          "학력 있음"  },
+                    { "CheatMod.LEVEL[WellEducated]",      "높은 학력"  },
+                    { "CheatMod.LEVEL[HighlyEducated]",    "최고 학력"  },
                     { "CheatMod.SECTION[Buildings]",        "\uac74\ubb3c"                     },
                     { "CheatMod.ACTION[UpgradeAll]",        "\uc804\uccb4 \ub808\ubca8 5\ub85c \uc5c5\uadf8\ub808\uc774\ub4dc" },
                     { "CheatMod.OPTION[MaxEfficiency]",     "\uae30\uc5c5 \ud6a8\uc728 \ucd5c\ub300" },
@@ -771,6 +832,12 @@ namespace CityForge
                     { "CheatMod.OPTION[MaxHappiness]",      "Maks. szcz\u0119\u015bcie obywateli" },
                     { "CheatMod.OPTION[RichCitizens]",      "Bogaci obywatele"                    },
                     { "CheatMod.OPTION[MaxEducation]",     "Maksymalna edukacja"  },
+                    { "CheatMod.OPTION[OverrideEducation]", "Rozkład edukacji"  },
+                    { "CheatMod.LEVEL[Uneducated]",        "Bez wykształcenia"  },
+                    { "CheatMod.LEVEL[PoorlyEducated]",    "Słabo wykształcony"  },
+                    { "CheatMod.LEVEL[Educated]",          "Wykształcony"  },
+                    { "CheatMod.LEVEL[WellEducated]",      "Dobrze wykształcony"  },
+                    { "CheatMod.LEVEL[HighlyEducated]",    "Wysoko wykształcony"  },
                     { "CheatMod.SECTION[Buildings]",        "Budynki"                             },
                     { "CheatMod.ACTION[UpgradeAll]",        "Ulepsz wszystko do poziomu 5"        },
                     { "CheatMod.OPTION[MaxEfficiency]",     "Maks. wydajno\u015b\u0107 firm"      },
@@ -855,6 +922,12 @@ namespace CityForge
                     { "CheatMod.OPTION[MaxHappiness]",      "Felicidade m\u00e1xima cidad\u00e3os" },
                     { "CheatMod.OPTION[RichCitizens]",      "Cidad\u00e3os ricos"                },
                     { "CheatMod.OPTION[MaxEducation]",     "Educação máxima"  },
+                    { "CheatMod.OPTION[OverrideEducation]", "Distribuição de educação"  },
+                    { "CheatMod.LEVEL[Uneducated]",        "Sem educação"  },
+                    { "CheatMod.LEVEL[PoorlyEducated]",    "Pouco educado"  },
+                    { "CheatMod.LEVEL[Educated]",          "Educado"  },
+                    { "CheatMod.LEVEL[WellEducated]",      "Bem educado"  },
+                    { "CheatMod.LEVEL[HighlyEducated]",    "Altamente educado"  },
                     { "CheatMod.SECTION[Buildings]",        "Edif\u00edcios"                     },
                     { "CheatMod.ACTION[UpgradeAll]",        "Melhorar tudo para n\u00edvel 5"    },
                     { "CheatMod.OPTION[MaxEfficiency]",     "Efici\u00eancia m\u00e1x empresas"  },
@@ -939,6 +1012,12 @@ namespace CityForge
                     { "CheatMod.OPTION[MaxHappiness]",      "\u041c\u0430\u043a\u0441. \u0441\u0447\u0430\u0441\u0442\u044c\u0435 \u0433\u0440\u0430\u0436\u0434\u0430\u043d" },
                     { "CheatMod.OPTION[RichCitizens]",      "\u0411\u043e\u0433\u0430\u0442\u044b\u0435 \u0433\u0440\u0430\u0436\u0434\u0430\u043d\u0435" },
                     { "CheatMod.OPTION[MaxEducation]",     "Максимальное образование"  },
+                    { "CheatMod.OPTION[OverrideEducation]", "Распределение образования"  },
+                    { "CheatMod.LEVEL[Uneducated]",        "Без образования"  },
+                    { "CheatMod.LEVEL[PoorlyEducated]",    "Малообразованный"  },
+                    { "CheatMod.LEVEL[Educated]",          "Образованный"  },
+                    { "CheatMod.LEVEL[WellEducated]",      "Хорошо образованный"  },
+                    { "CheatMod.LEVEL[HighlyEducated]",    "Высокообразованный"  },
                     { "CheatMod.SECTION[Buildings]",        "\u0417\u0434\u0430\u043d\u0438\u044f" },
                     { "CheatMod.ACTION[UpgradeAll]",        "\u0423\u043b\u0443\u0447\u0448\u0438\u0442\u044c \u0432\u0441\u0451 \u0434\u043e \u0443\u0440\u043e\u0432\u043d\u044f 5" },
                     { "CheatMod.OPTION[MaxEfficiency]",     "\u041c\u0430\u043a\u0441. \u044d\u0444\u0444\u0435\u043a\u0442\u0438\u0432\u043d\u043e\u0441\u0442\u044c \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u0439" },
@@ -1023,6 +1102,12 @@ namespace CityForge
                     { "CheatMod.OPTION[MaxHappiness]",      "\u5e02\u6c11\u5e78\u798f\u5ea6\u6700\u5927" },
                     { "CheatMod.OPTION[RichCitizens]",      "\u5bcc\u88d5\u5e02\u6c11"         },
                     { "CheatMod.OPTION[MaxEducation]",     "最高教育水準"  },
+                    { "CheatMod.OPTION[OverrideEducation]", "教育分布"  },
+                    { "CheatMod.LEVEL[Uneducated]",        "未受教育"  },
+                    { "CheatMod.LEVEL[PoorlyEducated]",    "教育程度低"  },
+                    { "CheatMod.LEVEL[Educated]",          "受过教育"  },
+                    { "CheatMod.LEVEL[WellEducated]",      "教育程度高"  },
+                    { "CheatMod.LEVEL[HighlyEducated]",    "受过高等教育"  },
                     { "CheatMod.OPTION[MaxEducation]",     "最高教育水平"  },
                     { "CheatMod.SECTION[Buildings]",        "\u5efa\u7b51"                     },
                     { "CheatMod.ACTION[UpgradeAll]",        "\u5168\u90e8\u5347\u7ea7\u52305\u7ea7" },
@@ -1107,6 +1192,13 @@ namespace CityForge
                     { "CheatMod.LABEL[TouristMult]",        "\u904a\u5ba2\u500d\u7387"         },
                     { "CheatMod.OPTION[MaxHappiness]",      "\u5e02\u6c11\u5e78\u798f\u5ea6\u6700\u5927" },
                     { "CheatMod.OPTION[RichCitizens]",      "\u5bcc\u88d5\u5e02\u6c11"         },
+                    { "CheatMod.OPTION[MaxEducation]",      "\u6700\u9ad8\u6559\u80b2\u6c34\u6e96"  },
+                    { "CheatMod.OPTION[OverrideEducation]", "教育分布"  },
+                    { "CheatMod.LEVEL[Uneducated]",        "未受教育"  },
+                    { "CheatMod.LEVEL[PoorlyEducated]",    "教育程度低"  },
+                    { "CheatMod.LEVEL[Educated]",          "受過教育"  },
+                    { "CheatMod.LEVEL[WellEducated]",      "教育程度高"  },
+                    { "CheatMod.LEVEL[HighlyEducated]",    "受過高等教育"  },
                     { "CheatMod.SECTION[Buildings]",        "\u5efa\u7bc9"                     },
                     { "CheatMod.ACTION[UpgradeAll]",        "\u5168\u90e8\u5347\u7d1a\u52305\u7d1a" },
                     { "CheatMod.OPTION[MaxEfficiency]",     "\u4f01\u696d\u6548\u7387\u6700\u5927" },
