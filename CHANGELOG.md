@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.0.12 — Released 2026-03-16
+
+### Bug Fixes
+- Fixed XP bar stuck at 0 after using "Advance to Milestone".
+
+---
+
 ## v1.0.11 — Released 2026-03-16
 
 ### New
