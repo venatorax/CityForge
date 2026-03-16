@@ -15,7 +15,7 @@ namespace CityForge
     public class Mod : IMod
     {
         public const string MOD_NAME = "CityForge";
-        public const string MOD_VERSION = "1.0.10";
+        public const string MOD_VERSION = "1.0.11";
         private const string HARMONY_ID = "com.venatorax.cityforge";
 
         public static ILog log = LogManager.GetLogger($"{nameof(CityForge)}.{nameof(Mod)}")
