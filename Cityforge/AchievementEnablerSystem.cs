@@ -29,6 +29,8 @@ namespace CityForge
         {
             base.OnGameLoadingComplete(purpose, mode);
 
+            if (mode != GameMode.Game) return;
+
             var setting = Mod.Setting;
             if (setting != null && !setting.EnableAchievements) return;
 
