@@ -1101,7 +1101,6 @@ namespace CityForge
                     { "CheatMod.LABEL[TouristMult]",        "\u6e38\u5ba2\u500d\u7387"         },
                     { "CheatMod.OPTION[MaxHappiness]",      "\u5e02\u6c11\u5e78\u798f\u5ea6\u6700\u5927" },
                     { "CheatMod.OPTION[RichCitizens]",      "\u5bcc\u88d5\u5e02\u6c11"         },
-                    { "CheatMod.OPTION[MaxEducation]",     "最高教育水準"  },
                     { "CheatMod.OPTION[OverrideEducation]", "教育分布"  },
                     { "CheatMod.LEVEL[Uneducated]",        "未受教育"  },
                     { "CheatMod.LEVEL[PoorlyEducated]",    "教育程度低"  },
