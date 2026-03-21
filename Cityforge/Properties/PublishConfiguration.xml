@@ -247,11 +247,12 @@ Bugreports und Feedback sind jederzeit willkommen.
 	<Screenshot Value="Assets/Screenshot6.png" />
 	<Tag Value="Code Mod" />
 	<ForumLink Value="https://forum.paradoxplaza.com/forum/threads/cheatbox-cheat-panel-for-money-demand-construction-more.1906532/" />
-	<ModVersion Value="1.0.11" />
+	<ModVersion Value="1.0.13" />
 	<GameVersion Value="1.*.*" />
 	<Dependency Id="" />
 	<RequiredDLC Value="" />
-	<ChangeLog Value="v1.0.11&#10;&#10;NEW&#10;&#10;• Education Distribution — 5 sliders to set how education levels are distributed across citizens&#10;&#10;BUG FIXES&#10;&#10;• Reduced periodic lag spikes when Move-In Boost or Tourist Boost are active&#10;• Fixed panel occasionally blocking game UI clicks&#10;• Fixed a rare issue where loading a city could unexpectedly advance milestones when achievements were enabled" />
+	<ChangeLog Value="v1.0.13&#10;&#10;IMPROVEMENTS&#10;&#10;• All panel sections are now collapsible, click any section header to fold or expand it&#10;&#10;BUG FIXES&#10;&#10;• Fixed ArgumentException on launch caused by a duplicate key in the Chinese (Simplified) locale" />
 	<ExternalLink Type="github" Url="https://github.com/venatorax/CityForge" />
+	<ExternalLink Type="donation" Url="https://paypal.me/venatoraxx" />
 	<AccessLevel Value="Public" />
 </Publish>
