@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.0.13 — Released 2026-03-21
+
+### Improvements
+- All panel sections are now collapsible — click any section header to fold or expand it.
+
+### Bug Fixes
+- Fixed ArgumentException on launch caused by a duplicate key in the Chinese (Simplified) locale.
+
+---
+
 ## v1.0.12 — Released 2026-03-16
 
 ### Bug Fixes
