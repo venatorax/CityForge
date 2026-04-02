@@ -247,11 +247,11 @@ Bugreports und Feedback sind jederzeit willkommen.
 	<Screenshot Value="Assets/Screenshot6.png" />
 	<Tag Value="Code Mod" />
 	<ForumLink Value="https://forum.paradoxplaza.com/forum/threads/cheatbox-cheat-panel-for-money-demand-construction-more.1906532/" />
-	<ModVersion Value="1.0.14" />
+	<ModVersion Value="1.0.15" />
 	<GameVersion Value="1.*.*" />
 	<Dependency Id="" />
 	<RequiredDLC Value="" />
-	<ChangeLog Value="v1.0.14&#10;&#10;NEW&#10;&#10;• Building upgrade now lets you choose a target level from 1 to 5 before upgrading&#10;&#10;BUG FIXES&#10;&#10;• Fixed crash to desktop when upgrading all buildings at x8 simulation speed&#10;• Fixed upgrade button always showing level 5 regardless of the selected level" />
+	<ChangeLog Value="v1.0.15&#10;&#10;BUG FIXES&#10;&#10;• Fixed mouse cursor being blocked in building menus, road tools and zone drawing after interacting with the CityForge panel" />
 	<ExternalLink Type="github" Url="https://github.com/venatorax/CityForge" />
 	<ExternalLink Type="donation" Url="https://paypal.me/venatoraxx" />
 	<AccessLevel Value="Public" />
