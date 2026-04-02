@@ -1,4 +1,5 @@
 using Game;
+using Game.Areas;
 using Game.Buildings;
 using Game.Citizens;
 using Game.City;
@@ -69,18 +70,25 @@ namespace CityForge
 
         private long _pendingMoneyTotal = 0;
         private bool _pendingUnlockMilestones = false;
-        private bool _pendingAddDevTreePoints = false;
+        private int _pendingDevPointsAmount = 0;
+        private bool _pendingUnlockAllDevTree = false;
         private bool _pendingUpgradeBuildings = false;
         private int _pendingTargetMilestone = -1;
+        private bool _pendingUnlockMapTiles = false;
+
+        private int _buildingTargetLevel = 5;
 
         private int _postUpgradeBoostFrames = 0;
         private const int POST_UPGRADE_BOOST_DURATION = 300;
+        private static readonly int3 _fullDemand = new int3(100, 100, 100);
 
-        private struct UpgradePair { public Entity Inst; public Entity L5Prefab; }
+        private struct UpgradePair { public Entity Inst; public Entity TargetPrefab; }
         private System.Collections.Generic.List<UpgradePair> _upgradeBatchList
             = new System.Collections.Generic.List<UpgradePair>(2048);
         private int _upgradeBatchIndex = 0;
-        private const int UPGRADE_BATCH_SIZE = 150;
+        private const int UPGRADE_BATCH_SIZE = 50;
+        private const int UPGRADE_FRAME_INTERVAL = 3;
+        private int _upgradeFrameCounter = 0;
 
         private int _lastKnownAchievedMilestone = -1;
         private bool _lastInfiniteMoney;
@@ -251,8 +259,11 @@ namespace CityForge
         public void SetKeepStorageFull(bool v) { _keepStorageFull = v; if (v) _pendingFillStorage = true; }
         public void RequestAddMoney(int amount) => Interlocked.Add(ref _pendingMoneyTotal, amount);
         public void RequestUnlockAllMilestones() => _pendingUnlockMilestones = true;
-        public void RequestAddDevTreePoints() => _pendingAddDevTreePoints = true;
+        public void RequestAddDevTreePoints(int amount) => Interlocked.Add(ref _pendingDevPointsAmount, Math.Max(0, amount));
+        public void RequestUnlockAllDevTree() => _pendingUnlockAllDevTree = true;
         public void RequestUpgradeAllBuildings() => _pendingUpgradeBuildings = true;
+        public void RequestSetBuildingTargetLevel(int level) => _buildingTargetLevel = Math.Max(1, Math.Min(5, level));
+        public void RequestUnlockAllMapTiles() => _pendingUnlockMapTiles = true;
         public void RequestUnlockMilestonesTo(int target) =>
             _pendingTargetMilestone = Math.Max(1, Math.Min(target, MAX_MILESTONE));
 
@@ -282,7 +293,7 @@ namespace CityForge
             if (_postUpgradeBoostFrames > 0)
             {
                 _postUpgradeBoostFrames--;
-                if (!s.OverrideResidentialDemand) { _setResLast?.Invoke(_resDemandSystem, new int3(100, 100, 100)); SetResNativeValue(new int3(100, 100, 100)); }
+                if (!s.OverrideResidentialDemand) { _setResLast?.Invoke(_resDemandSystem, _fullDemand); SetResNativeValue(_fullDemand); }
                 if (!s.OverrideCommercialDemand) _setComLast?.Invoke(_comDemandSystem, 100);
                 if (!s.OverrideIndustrialDemand) _setIndLast?.Invoke(_indDemandSystem, 100);
                 if (!s.OverrideOfficeDemand) _setOffLast?.Invoke(_indDemandSystem, 100);
@@ -293,7 +304,8 @@ namespace CityForge
             if (s.KeepMilestonesUnlocked && _frameCount % 300u == 0 && _milestoneSystem != null)
                 if (_milestoneSystem.nextMilestone - 1 < _lastKnownAchievedMilestone) ApplyMilestoneTo(MAX_MILESTONE);
 
-            if (_pendingAddDevTreePoints) { _pendingAddDevTreePoints = false; if (_devTreeSystem != null) _devTreeSystem.points = 228; }
+            { int pts = Interlocked.Exchange(ref _pendingDevPointsAmount, 0); if (pts > 0 && _devTreeSystem != null) _devTreeSystem.points += pts; }
+            if (_pendingUnlockAllDevTree) { _pendingUnlockAllDevTree = false; if (_devTreeSystem != null) _devTreeSystem.points = 99999; }
 
             bool doInstant = s.InstantConstruction;
             int speedIdx = Math.Max(0, Math.Min(s.ConstructionSpeedIndex, SpeedBonus.Length - 1));
@@ -302,10 +314,6 @@ namespace CityForge
                 if (!_underConstructionQuery.IsEmpty) ApplyConstructionProgress(doInstant, bonus);
 
             if (s.MaxHappiness && !_citizenQuery.IsEmpty) ApplyMaxHappiness();
-
-            if (s.MaxEducation && !_citizenQuery.IsEmpty) ApplyMaxEducation();
-            if (s.OverrideEducation && _frameCount % 300u == 0 && !_citizenQuery.IsEmpty)
-                ApplyEducationDistribution(s.EduLevel0, s.EduLevel1, s.EduLevel2, s.EduLevel3, s.EduLevel4);
 
             if (s.RichCitizens && _frameCount % 300u == 0 && !_householdWithResourcesQuery.IsEmpty)
                 ApplyRichCitizens();
@@ -327,11 +335,21 @@ namespace CityForge
                 EnsureBuildingLevelSetup();
                 CollectUpgradeBatch();
                 _postUpgradeBoostFrames = POST_UPGRADE_BOOST_DURATION;
-                Mod.log.Info($"UpgradeAll: {_upgradeBatchList.Count} buildings queued.");
+                _upgradeFrameCounter = 0;
+                Mod.log.Info($"UpgradeAll (target L{_buildingTargetLevel}): {_upgradeBatchList.Count} buildings queued.");
             }
 
             if (_upgradeBatchIndex < _upgradeBatchList.Count)
-                FlushUpgradeBatch(UPGRADE_BATCH_SIZE);
+            {
+                _upgradeFrameCounter++;
+                if (_upgradeFrameCounter >= UPGRADE_FRAME_INTERVAL)
+                {
+                    _upgradeFrameCounter = 0;
+                    FlushUpgradeBatch(UPGRADE_BATCH_SIZE);
+                }
+            }
+
+            if (_pendingUnlockMapTiles) { _pendingUnlockMapTiles = false; Dependency.Complete(); UnlockAllMapTiles(); }
 
             if (_pendingFillStorage) { _pendingFillStorage = false; FillAllStorage(); }
             if (_keepStorageFull && _frameCount % 60 == 0) FillAllStorage();
@@ -359,67 +377,6 @@ namespace CityForge
         {
             Dependency = new MaxHappinessJob { CitizenHandle = _citizenTypeHandle }
                 .ScheduleParallel(_citizenQuery, Dependency);
-        }
-
-        [BurstCompile]
-        private struct MaxEducationJob : IJobChunk
-        {
-            public ComponentTypeHandle<Citizen> CitizenHandle;
-            public void Execute(in ArchetypeChunk chunk, int unfilteredChunkIndex,
-                                bool useEnabledMask, in v128 chunkEnabledMask)
-            {
-                var citizens = chunk.GetNativeArray(ref CitizenHandle);
-                for (int i = 0; i < citizens.Length; i++)
-                {
-                    var c = citizens[i];
-                    c.SetEducationLevel(4);
-                    citizens[i] = c;
-                }
-            }
-        }
-
-        private void ApplyMaxEducation()
-        {
-            Dependency = new MaxEducationJob { CitizenHandle = _citizenTypeHandle }
-                .ScheduleParallel(_citizenQuery, Dependency);
-        }
-
-        [BurstCompile]
-        private struct EducationDistributionJob : IJobChunk
-        {
-            public ComponentTypeHandle<Citizen> CitizenHandle;
-            public ushort T0, T1, T2, T3;
-            public void Execute(in ArchetypeChunk chunk, int unfilteredChunkIndex,
-                                bool useEnabledMask, in v128 chunkEnabledMask)
-            {
-                var citizens = chunk.GetNativeArray(ref CitizenHandle);
-                for (int i = 0; i < citizens.Length; i++)
-                {
-                    var c = citizens[i];
-                    ushort r = c.m_PseudoRandom;
-                    int level = r < T0 ? 0 : r < T1 ? 1 : r < T2 ? 2 : r < T3 ? 3 : 4;
-                    c.SetEducationLevel(level);
-                    citizens[i] = c;
-                }
-            }
-        }
-
-        private void ApplyEducationDistribution(int p0, int p1, int p2, int p3, int p4)
-        {
-            int total = p0 + p1 + p2 + p3 + p4;
-            if (total <= 0) return;
-            ushort t0 = (ushort)((long)p0 * 65535 / total);
-            ushort t1 = (ushort)((long)(p0 + p1) * 65535 / total);
-            ushort t2 = (ushort)((long)(p0 + p1 + p2) * 65535 / total);
-            ushort t3 = (ushort)((long)(p0 + p1 + p2 + p3) * 65535 / total);
-            Dependency = new EducationDistributionJob
-            {
-                CitizenHandle = _citizenTypeHandle,
-                T0 = t0,
-                T1 = t1,
-                T2 = t2,
-                T3 = t3
-            }.ScheduleParallel(_citizenQuery, Dependency);
         }
 
         [BurstCompile]
@@ -498,7 +455,7 @@ namespace CityForge
                 var l5Map = new System.Collections.Generic.Dictionary<long, Entity>();
                 for (int i = 0; i < prefabEntities.Length; i++)
                 {
-                    if (spawnableDatas[i].m_Level != 5) continue;
+                    if (spawnableDatas[i].m_Level != _buildingTargetLevel) continue;
                     long key = BuildL5Key(
                         spawnableDatas[i].m_ZonePrefab.Index,
                         buildingDatas[i].m_LotSize.x,
@@ -524,7 +481,7 @@ namespace CityForge
                     if (EntityManager.HasComponent<Abandoned>(inst)) continue;
 
                     var spawnable = EntityManager.GetComponentData<SpawnableBuildingData>(prefab);
-                    if (spawnable.m_Level >= 5) continue;
+                    if (spawnable.m_Level >= _buildingTargetLevel) continue;
 
                     var bdata = EntityManager.GetComponentData<BuildingData>(prefab);
                     long key = BuildL5Key(
@@ -534,7 +491,7 @@ namespace CityForge
                         (int)(bdata.m_Flags & (Game.Prefabs.BuildingFlags.LeftAccess | Game.Prefabs.BuildingFlags.RightAccess)));
 
                     if (!l5Map.TryGetValue(key, out Entity l5Prefab)) continue;
-                    _upgradeBatchList.Add(new UpgradePair { Inst = inst, L5Prefab = l5Prefab });
+                    _upgradeBatchList.Add(new UpgradePair { Inst = inst, TargetPrefab = l5Prefab });
                 }
                 placed.Dispose();
                 prefabRefs.Dispose();
@@ -558,7 +515,7 @@ namespace CityForge
                 {
                     EntityManager.AddComponentData(pair.Inst, new UnderConstruction
                     {
-                        m_NewPrefab = pair.L5Prefab,
+                        m_NewPrefab = pair.TargetPrefab,
                         m_Progress = byte.MaxValue
                     });
                     applied++;
@@ -568,6 +525,50 @@ namespace CityForge
 
             if (applied > 0)
                 Mod.log.Info($"UpgradeAll: {applied} this frame, {_upgradeBatchList.Count - _upgradeBatchIndex} remaining.");
+        }
+
+        // ── Map Tile Unlock ─────────────────────────────────────────────────────
+        // dnSpy confirmed (Game.dll → Game.Areas):
+        //   MapTile : IComponentData, IEmptySerializable  — marker on every map tile entity
+        //   No "Locked" component exists in Game.Areas.
+        //
+        // Strategy: All map tile entities carry MapTile.
+        // Unpurchased tiles lack an Owner component (Game.Common.Owner).
+        // To "buy" a tile: add Owner { m_Owner = cityEntity } to it.
+        // MapTileSystem then picks up the change on next tick.
+
+        private void UnlockAllMapTiles()
+        {
+            try
+            {
+                // City entity — the owner we assign tiles to
+                var citySystem = World.GetOrCreateSystemManaged<CitySystem>();
+                Entity cityEntity = citySystem?.City ?? Entity.Null;
+                if (cityEntity == Entity.Null)
+                {
+                    Mod.log.Warn("UnlockAllMapTiles: city entity not found");
+                    return;
+                }
+
+                // All map tile entities that do NOT yet have an Owner
+                var query = EntityManager.CreateEntityQuery(
+                    ComponentType.ReadOnly<MapTile>(),
+                    ComponentType.Exclude<Owner>()
+                );
+                var tiles = query.ToEntityArray(Allocator.Temp);
+                int count = tiles.Length;
+
+                for (int i = 0; i < tiles.Length; i++)
+                {
+                    try { EntityManager.AddComponentData(tiles[i], new Owner { m_Owner = cityEntity }); }
+                    catch { }
+                }
+
+                tiles.Dispose();
+                query.Dispose();
+                Mod.log.Info($"UnlockAllMapTiles: {count} tiles unlocked (Owner set to city).");
+            }
+            catch (Exception e) { Mod.log.Warn($"UnlockAllMapTiles: {e.Message}"); }
         }
 
         private static long BuildL5Key(int zonePrefabIndex, int lotX, int lotY, int accessFlags)
@@ -859,8 +860,6 @@ namespace CityForge
                 var money = EntityManager.GetComponentData<PlayerMoney>(cityEntity);
                 var credit = EntityManager.GetComponentData<Creditworthiness>(cityEntity);
 
-                int baselineXP = 0; 
-
                 try
                 {
                     for (int i = levelSingleton.m_AchievedMilestone; i < milestoneDataArr.Length; i++)
@@ -871,7 +870,6 @@ namespace CityForge
                         levelSingleton.m_AchievedMilestone = math.max(levelSingleton.m_AchievedMilestone, milestoneDataArr[i].m_Index);
                         money.Add(milestoneDataArr[i].m_Reward);
                         credit.m_Amount += milestoneDataArr[i].m_LoanLimit;
-                        baselineXP = milestoneDataArr[i].m_XpRequried; 
                     }
                 }
                 finally { milestoneEntities.Dispose(); milestoneDataArr.Dispose(); }
@@ -879,15 +877,8 @@ namespace CityForge
                 _milestoneLevelGroup.SetSingleton(levelSingleton);
                 EntityManager.SetComponentData(cityEntity, money);
                 EntityManager.SetComponentData(cityEntity, credit);
-
-                
-                if (EntityManager.HasComponent<XP>(cityEntity))
-                {
-                    EntityManager.SetComponentData(cityEntity, new XP { m_XP = baselineXP });
-                }
-
                 _lastKnownAchievedMilestone = levelSingleton.m_AchievedMilestone;
-                Mod.log.Info($"Milestones advanced to {levelSingleton.m_AchievedMilestone}, XP baseline set to {baselineXP}.");
+                Mod.log.Info($"Milestones advanced to {levelSingleton.m_AchievedMilestone}.");
             }
             catch (Exception e) { Mod.log.Warn($"ApplyMilestoneTo({target}): {e.Message}"); }
         }
