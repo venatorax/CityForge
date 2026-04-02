@@ -83,7 +83,7 @@ Additional options include:
 
 # **Buildings & Storage**
 
-Upgrade **every building in your city to level 5** with a single click.
+Upgrade **every building in your city** to your chosen level **(1–5)** with a single click.
 
 The upgrade process runs in small batches in the background so the game stays smooth.
 
@@ -202,7 +202,7 @@ Weitere Optionen:
 
 # **Gebäude & Lager**
 
-Alle Gebäude der Stadt mit **einem Klick auf Stufe 5 upgraden**.
+Alle Gebäude der Stadt mit **einem Klick auf die gewünschte Stufe (1–5) upgraden**.
 
 Die Verarbeitung erfolgt in kleinen Batches im Hintergrund, damit das Spiel flüssig bleibt.
 
@@ -247,11 +247,11 @@ Bugreports und Feedback sind jederzeit willkommen.
 	<Screenshot Value="Assets/Screenshot6.png" />
 	<Tag Value="Code Mod" />
 	<ForumLink Value="https://forum.paradoxplaza.com/forum/threads/cheatbox-cheat-panel-for-money-demand-construction-more.1906532/" />
-	<ModVersion Value="1.0.13" />
+	<ModVersion Value="1.0.14" />
 	<GameVersion Value="1.*.*" />
 	<Dependency Id="" />
 	<RequiredDLC Value="" />
-	<ChangeLog Value="v1.0.13&#10;&#10;IMPROVEMENTS&#10;&#10;• All panel sections are now collapsible, click any section header to fold or expand it&#10;&#10;BUG FIXES&#10;&#10;• Fixed ArgumentException on launch caused by a duplicate key in the Chinese (Simplified) locale" />
+	<ChangeLog Value="v1.0.14&#10;&#10;NEW&#10;&#10;• Building upgrade now lets you choose a target level from 1 to 5 before upgrading&#10;&#10;BUG FIXES&#10;&#10;• Fixed crash to desktop when upgrading all buildings at x8 simulation speed&#10;• Fixed upgrade button always showing level 5 regardless of the selected level" />
 	<ExternalLink Type="github" Url="https://github.com/venatorax/CityForge" />
 	<ExternalLink Type="donation" Url="https://paypal.me/venatoraxx" />
 	<AccessLevel Value="Public" />
