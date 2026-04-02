@@ -14,7 +14,7 @@ Money, milestones, demand, construction, citizens, buildings, storage and more �
 - 📈 **Demand** — override residential (low/medium/high), commercial, industrial and office demand separately; Force Build ignores demand entirely
 - 🏗️ **Construction** — instant build or 4 adjustable speed levels
 - 👥 **Citizens & Tourism** — boost move-in rate and tourists, max happiness, rich citizens, max education, education distribution
-- 🏢 **Buildings** — upgrade all buildings to level 5, max company efficiency
+- 🏢 **Buildings** — upgrade all buildings to a chosen level (1–5), max company efficiency
 - 📦 **Storage** — fill all storage instantly or keep it permanently full
 - 🎨 **Appearance** — customize the panel background color with presets or a custom hex value
 - 🏅 **Achievements** — keep achievements enabled even when mods are active

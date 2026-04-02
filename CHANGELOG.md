@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.0.14 — Released 2026-04-02
+
+### New
+- **Building level selector** — choose a target level from 1 to 5 before upgrading all buildings. Previously always upgraded to level 5.
+
+### Bug Fixes
+- Fixed crash to desktop when upgrading all buildings at x8 simulation speed.
+- Fixed upgrade button always showing level 5 regardless of the selected level.
+
+---
+
 ## v1.0.13 — Released 2026-03-21
 
 ### Improvements

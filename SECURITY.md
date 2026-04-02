@@ -2,8 +2,8 @@
 ## Supported Versions
 | Version | Supported |
 | ------- | --------- |
-| 1.0.13  | ✅ |
-| < 1.0.13 | ❌ |
+| 1.0.14  | ✅ |
+| < 1.0.14 | ❌ |
 ## Reporting a Vulnerability
 If you find a security issue, please **do not** open a public GitHub issue.
 Instead, contact me directly on the Paradox Forums or via private message at:
