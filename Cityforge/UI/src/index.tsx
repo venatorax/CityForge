@@ -653,7 +653,7 @@ function Slider({value,label,onChange,min=0,max=100}:{value:number;label?:string
   const onChangeRef=useRef(onChange);
   onChangeRef.current=onChange;
   const onMouseDown=useCallback((e:React.MouseEvent)=>{
-    e.stopPropagation();e.preventDefault();
+    e.stopPropagation();
     const calc=(clientX:number)=>{
       const el=trackRef.current;if(!el)return;
       const r=el.getBoundingClientRect();
@@ -661,7 +661,7 @@ function Slider({value,label,onChange,min=0,max=100}:{value:number;label?:string
       onChangeRef.current(Math.round(min+pct*(max-min)));
     };
     calc(e.clientX);
-    const mv=(ev:MouseEvent)=>{ev.preventDefault();calc(ev.clientX);};
+    const mv=(ev:MouseEvent)=>{calc(ev.clientX);};
     const up=()=>{window.removeEventListener("mousemove",mv);window.removeEventListener("mouseup",up);};
     window.addEventListener("mousemove",mv);window.addEventListener("mouseup",up);
   },[min,max]);
@@ -795,7 +795,7 @@ function BuildingsSection({t,maxCompanyEfficiency,resetOnNewMap,buildingLevelAva
 function ResizeHandle({onResize}:{onResize:(dx:number,dy:number)=>void;}) {
   const [hov,setHov]=useState(false);
   const onMouseDown=useCallback((e:React.MouseEvent)=>{
-    e.stopPropagation();e.preventDefault();
+    e.stopPropagation();
     let lx=e.clientX,ly=e.clientY;
     const mv=(ev:MouseEvent)=>{onResize(ev.clientX-lx,ev.clientY-ly);lx=ev.clientX;ly=ev.clientY;};
     const up=()=>{window.removeEventListener("mousemove",mv);window.removeEventListener("mouseup",up);};
@@ -873,7 +873,6 @@ function CityForgePanel() {
   const keepStorageFull       =useValue(KeepStorageFull$);
   const panelBgColor          =useValue(PanelBgColor$);
 
-  // Inject font-family once — uses fonts already preloaded by the game engine (coui://preloaded/fonts/)
   useEffect(() => {
     if (document.getElementById("cityforge-fonts")) return;
     const s = document.createElement("style");
@@ -881,6 +880,12 @@ function CityForgePanel() {
     s.textContent = `.cityforge-root,.cityforge-root *{font-family:'Noto Sans JP','Noto Sans SC','Noto Sans TC','Noto Sans KR',sans-serif !important}`;
     document.head.appendChild(s);
   }, []);
+
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    if (panelVisible) { setMounted(true); }
+    else { const t = setTimeout(() => setMounted(false), 200); return () => clearTimeout(t); }
+  }, [panelVisible]);
 
   const dragging   =useRef(false);
   const dragOffset =useRef({x:0,y:0});
@@ -915,16 +920,14 @@ function CityForgePanel() {
       onMouseMove={panelVisible ? onMouseMove : undefined}
       onMouseUp={panelVisible ? onMouseUp : undefined}
       onMouseLeave={panelVisible ? onMouseUp : undefined}
-      style={{position:"fixed" as const,left:`${pos.x}px`,top:`${pos.y}px`,width:`${size.w}px`,height:`${size.h}px`,minWidth:`${MIN_W}px`,maxWidth:`${MAX_W}px`,minHeight:`${MIN_H}px`,background:hexToRgba(panelBgColor||DEFAULT_BG),border:`1px solid ${C.border}`,borderRadius:"10rem",boxShadow:"0 10rem 40rem rgba(0,0,0,0.75)",fontSize:"14rem",color:C.textPrimary,userSelect:"none" as const,zIndex:9999,overflow:"hidden",display:"flex",flexDirection:"column" as const,
+      style={{position:"fixed" as const,left:`${pos.x}px`,top:`${pos.y}px`,width:`${size.w}px`,height:`${size.h}px`,minWidth:`${MIN_W}px`,maxWidth:`${MAX_W}px`,minHeight:`${MIN_H}px`,background:hexToRgba(panelBgColor||DEFAULT_BG),border:`1px solid ${C.border}`,borderRadius:"10rem",boxShadow:"0 10rem 40rem rgba(0,0,0,0.75)",fontSize:"14rem",color:C.textPrimary,userSelect:"none" as const,zIndex:9999,overflow:"hidden",flexDirection:"column" as const,
         opacity: panelVisible ? 1 : 0,
-        transform: panelVisible ? "scale(1) translateY(0rem)" : "scale(0.97) translateY(-8rem)",
-        transformOrigin: "top center",
-        transition: "opacity 0.16s ease, transform 0.16s ease",
-        pointerEvents: panelVisible ? ("auto" as const) : ("none" as const)}}>
+        pointerEvents: panelVisible ? ("auto" as const) : ("none" as const),
+        display: mounted ? ("flex" as const) : ("none" as const)}}>
 
 
       <div onMouseDown={onHeaderMouseDown} style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"10rem 14rem",borderBottom:`1px solid ${C.border}`,cursor:"grab",flexShrink:0}}>
-        <div>
+        <div style={{pointerEvents:"none" as const}}>
           <div style={{fontSize:"14rem",fontWeight:600,color:C.textPrimary,letterSpacing:"0.06em"}}>CITYFORGE</div>
           <div style={{fontSize:"11rem",color:C.textMuted,marginTop:"1rem"}}>by Venatorax</div>
         </div>
