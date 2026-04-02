@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.0.15 — Released 2026-04-02
+
+### Bug Fixes
+- Fixed mouse cursor being blocked in building menus, road tools and zone drawing after interacting with the CityForge panel.
+
+---
+
 ## v1.0.14 — Released 2026-04-02
 
 ### New
