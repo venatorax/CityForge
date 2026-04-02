@@ -32,16 +32,10 @@ const OverrideTourists$      = bindValue<boolean>("cheatmod","OverrideTourists",
 const TouristMultiplier$     = bindValue<number> ("cheatmod","TouristMultiplier",      1);
 const MaxHappiness$          = bindValue<boolean>("cheatmod","MaxHappiness",           false);
 const RichCitizens$          = bindValue<boolean>("cheatmod","RichCitizens",           false);
-const MaxEducation$          = bindValue<boolean>("cheatmod","MaxEducation",           false);
-const OverrideEducation$     = bindValue<boolean>("cheatmod","OverrideEducation",      false);
-const EduLevel0$             = bindValue<number> ("cheatmod","EduLevel0",              10);
-const EduLevel1$             = bindValue<number> ("cheatmod","EduLevel1",              20);
-const EduLevel2$             = bindValue<number> ("cheatmod","EduLevel2",              30);
-const EduLevel3$             = bindValue<number> ("cheatmod","EduLevel3",              25);
-const EduLevel4$             = bindValue<number> ("cheatmod","EduLevel4",              15);
 const MaxCompanyEfficiency$  = bindValue<boolean>("cheatmod","MaxCompanyEfficiency",   false);
 const ResetOnNewMap$         = bindValue<boolean>("cheatmod","ResetOnNewMap",          true);
 const BuildingLevelAvailable$ = bindValue<boolean>("cheatmod","BuildingLevelAvailable", false);
+const BuildingTargetLevel$    = bindValue<number> ("cheatmod","BuildingTargetLevel",    5);
 const KeepStorageFull$        = bindValue<boolean>("cheatmod","KeepStorageFull",         false);
 const PanelBgColor$           = bindValue<string> ("cheatmod","PanelBgColor",            "#121418");
 
@@ -62,19 +56,12 @@ const KEYS = {
   tourists:"CheatMod.OPTION[Tourists]",touristMult:"CheatMod.LABEL[TouristMult]",
   maxHappiness:"CheatMod.OPTION[MaxHappiness]",
   richCitizens:"CheatMod.OPTION[RichCitizens]",
-  maxEducation:"CheatMod.OPTION[MaxEducation]",
-  infoMaxEducation:"CheatMod.INFO[MaxEducation]",
-  overrideEducation:"CheatMod.OPTION[OverrideEducation]",
-  eduUneducated:"CheatMod.LEVEL[Uneducated]",
-  eduPoorly:"CheatMod.LEVEL[PoorlyEducated]",
-  eduEducated:"CheatMod.LEVEL[Educated]",
-  eduWell:"CheatMod.LEVEL[WellEducated]",
-  eduHighly:"CheatMod.LEVEL[HighlyEducated]",
   buildings:"CheatMod.SECTION[Buildings]",
   upgradeAll:"CheatMod.ACTION[UpgradeAll]",
   fillStorage:"CheatMod.ACTION[FillStorage]",
   keepStorageFull:"CheatMod.OPTION[KeepStorageFull]",
   maxEfficiency:"CheatMod.OPTION[MaxEfficiency]",
+  buildingTargetLevel:"CheatMod.LABEL[BuildingTargetLevel]",
   dragHint:"CheatMod.HINT[Drag]",
   resetOnNewMap:"CheatMod.OPTION[ResetOnNewMap]",
   infoInstantBuild:"CheatMod.INFO[InstantBuild]",
@@ -106,16 +93,9 @@ const EN: Record<string,string> = {
   [KEYS.tourists]:"Boost Tourists",[KEYS.touristMult]:"Tourist Multiplier",
   [KEYS.maxHappiness]:"Max Citizen Happiness",
   [KEYS.richCitizens]:"Rich Citizens",
-  [KEYS.maxEducation]:"Max Education",
-  [KEYS.overrideEducation]:"Education Distribution",
-  [KEYS.eduUneducated]:"Uneducated",
-  [KEYS.eduPoorly]:"Poorly Educated",
-  [KEYS.eduEducated]:"Educated",
-  [KEYS.eduWell]:"Well Educated",
-  [KEYS.eduHighly]:"Highly Educated",
-  [KEYS.infoMaxEducation]:"All citizens have maximum education (Level 4)",
   [KEYS.buildings]:"Buildings",
-  [KEYS.upgradeAll]:"Upgrade All to Level 5",
+  [KEYS.buildingTargetLevel]:"Target Level",
+  [KEYS.upgradeAll]:"Upgrade All Buildings to Level",
   [KEYS.fillStorage]:"Fill Storage",
   [KEYS.keepStorageFull]:"Keep storage permanently full",
   [KEYS.maxEfficiency]:"Max. Company Efficiency",
@@ -148,16 +128,9 @@ const DE: Record<string,string> = {
   [KEYS.tourists]:"Touristen erh\u00f6hen",[KEYS.touristMult]:"Touristen-Multiplikator",
   [KEYS.maxHappiness]:"Maximale B\u00fcrgerzufriedenheit",
   [KEYS.richCitizens]:"Reiche B\u00fcrger",
-  [KEYS.maxEducation]:"Maximale Bildung",
-  [KEYS.overrideEducation]:"Bildungsverteilung",
-  [KEYS.eduUneducated]:"Ungebildet",
-  [KEYS.eduPoorly]:"Wenig gebildet",
-  [KEYS.eduEducated]:"Gebildet",
-  [KEYS.eduWell]:"Gut gebildet",
-  [KEYS.eduHighly]:"Hochgebildet",
-  [KEYS.infoMaxEducation]:"Alle B\u00fcrger haben maximale Bildung (Stufe 4)",
   [KEYS.buildings]:"Geb\u00e4ude",
-  [KEYS.upgradeAll]:"Alle auf Stufe 5 upgraden",
+  [KEYS.buildingTargetLevel]:"Ziel-Stufe",
+  [KEYS.upgradeAll]:"Alle Geb\u00e4ude upgraden auf Stufe",
   [KEYS.fillStorage]:"Lager auff\u00fcllen",
   [KEYS.keepStorageFull]:"Lager dauerhaft voll halten",
   [KEYS.maxEfficiency]:"Max. Unternehmenseffizienz",
@@ -190,16 +163,8 @@ const FR: Record<string,string> = {
   [KEYS.tourists]:"Augmenter les touristes",[KEYS.touristMult]:"Multiplicateur de touristes",
   [KEYS.maxHappiness]:"Bonheur maximum",
   [KEYS.richCitizens]:"Citoyens riches",
-  [KEYS.maxEducation]:"\u00c9ducation maximale",
-  [KEYS.overrideEducation]:"Éducation répartie",
-  [KEYS.eduUneducated]:"Sans éducation",
-  [KEYS.eduPoorly]:"Peu éduqué",
-  [KEYS.eduEducated]:"Éduqué",
-  [KEYS.eduWell]:"Bien éduqué",
-  [KEYS.eduHighly]:"Très éduqué",
-  [KEYS.infoMaxEducation]:"Tous les citoyens ont une \u00e9ducation maximale (Niveau 4)",
   [KEYS.buildings]:"B\u00e2timents",
-  [KEYS.upgradeAll]:"Tout upgrader niveau 5",
+  [KEYS.upgradeAll]:"Tout upgrader au niveau",
   [KEYS.fillStorage]:"Remplir le stockage",
   [KEYS.keepStorageFull]:"Maintenir le stockage plein",
   [KEYS.maxEfficiency]:"Efficacit\u00e9 max entreprises",
@@ -232,16 +197,8 @@ const ES: Record<string,string> = {
   [KEYS.tourists]:"Aumentar turistas",[KEYS.touristMult]:"Multiplicador de turistas",
   [KEYS.maxHappiness]:"Felicidad m\u00e1xima ciudadana",
   [KEYS.richCitizens]:"Ciudadanos ricos",
-  [KEYS.maxEducation]:"Educaci\u00f3n m\u00e1xima",
-  [KEYS.overrideEducation]:"Distribución educativa",
-  [KEYS.eduUneducated]:"Sin educación",
-  [KEYS.eduPoorly]:"Poco educado",
-  [KEYS.eduEducated]:"Educado",
-  [KEYS.eduWell]:"Bien educado",
-  [KEYS.eduHighly]:"Altamente educado",
-  [KEYS.infoMaxEducation]:"Todos los ciudadanos tienen educaci\u00f3n m\u00e1xima (Nivel 4)",
   [KEYS.buildings]:"Edificios",
-  [KEYS.upgradeAll]:"Mejorar todo a nivel 5",
+  [KEYS.upgradeAll]:"Mejorar todo al nivel",
   [KEYS.fillStorage]:"Llenar almac\u00e9n",
   [KEYS.keepStorageFull]:"Mantener almac\u00e9n siempre lleno",
   [KEYS.maxEfficiency]:"Eficiencia m\u00e1x empresas",
@@ -274,16 +231,8 @@ const IT: Record<string,string> = {
   [KEYS.tourists]:"Aumenta turisti",[KEYS.touristMult]:"Moltiplicatore turisti",
   [KEYS.maxHappiness]:"Felicit\u00e0 massima",
   [KEYS.richCitizens]:"Cittadini ricchi",
-  [KEYS.maxEducation]:"Istruzione massima",
-  [KEYS.overrideEducation]:"Distribuzione istruzione",
-  [KEYS.eduUneducated]:"Non istruito",
-  [KEYS.eduPoorly]:"Poco istruito",
-  [KEYS.eduEducated]:"Istruito",
-  [KEYS.eduWell]:"Ben istruito",
-  [KEYS.eduHighly]:"Altamente istruito",
-  [KEYS.infoMaxEducation]:"Tutti i cittadini hanno istruzione massima (Livello 4)",
   [KEYS.buildings]:"Edifici",
-  [KEYS.upgradeAll]:"Tutto a livello 5",
+  [KEYS.upgradeAll]:"Tutto al livello",
   [KEYS.fillStorage]:"Riempi magazzino",
   [KEYS.keepStorageFull]:"Mantieni magazzino sempre pieno",
   [KEYS.maxEfficiency]:"Efficienza max aziende",
@@ -305,7 +254,7 @@ const JA: Record<string,string> = {
   [KEYS.milestones]:"\u30de\u30a4\u30eb\u30b9\u30c8\u30fc\u30f3",[KEYS.unlockAll]:"\u3059\u3079\u3066\u89e3\u9664",
   [KEYS.advanceToTarget]:"\u76ee\u6a19\u307e\u3067\u9032\u3081\u308b",[KEYS.targetMilestone]:"\u76ee\u6a19",
   [KEYS.keepUnlocked]:"\u6c38\u4e45\u306b\u89e3\u9664\u72b6\u614b\u3092\u7dad\u6301",[KEYS.devTree]:"\u958b\u767a\u30c4\u30ea\u30fc",
-  [KEYS.addPoints]:"+ 228 \u30dd\u30a4\u30f3\u30c8",[KEYS.demand]:"\u9700\u8981",
+  [KEYS.addPoints]:"+ \u30dd\u30a4\u30f3\u30c8",[KEYS.demand]:"\u9700\u8981",
   [KEYS.residential]:"\u4f4f\u5b85",[KEYS.commercial]:"\u5546\u696d",
   [KEYS.industrial]:"\u5de5\u696d",[KEYS.office]:"\u30aa\u30d5\u30a3\u30b9",
   [KEYS.low]:"\u4f4e",[KEYS.medium]:"\u4e2d",[KEYS.high]:"\u9ad8",
@@ -316,16 +265,8 @@ const JA: Record<string,string> = {
   [KEYS.tourists]:"\u89b3\u5149\u5ba2\u3092\u5897\u3084\u3059",[KEYS.touristMult]:"\u89b3\u5149\u5ba2\u500d\u7387",
   [KEYS.maxHappiness]:"\u5e02\u6c11\u306e\u5e78\u798f\u5ea6\u6700\u5927",
   [KEYS.richCitizens]:"\u88d5\u798f\u306a\u5e02\u6c11",
-  [KEYS.maxEducation]:"\u6700\u9ad8\u6559\u80b2\u30ec\u30d9\u30eb",
-  [KEYS.overrideEducation]:"教育分布",
-  [KEYS.eduUneducated]:"無教育",
-  [KEYS.eduPoorly]:"低教育",
-  [KEYS.eduEducated]:"普通教育",
-  [KEYS.eduWell]:"高教育",
-  [KEYS.eduHighly]:"最高教育",
-  [KEYS.infoMaxEducation]:"\u5168\u5e02\u6c11\u304c\u6700\u9ad8\u6559\u80b2\u30ec\u30d9\u30eb\u3067\u3059\uff08\u30ec\u30d9\u30eb4\uff09",
   [KEYS.buildings]:"\u5efa\u7269",
-  [KEYS.upgradeAll]:"\u3059\u3079\u3066\u30ec\u30d9\u30eb5\u306b\u30a2\u30c3\u30d7\u30b0\u30ec\u30fc\u30c9",
+  [KEYS.upgradeAll]:"\u5168\u3066\u3092Lv\u306b\u30a2\u30c3\u30d7\u30b0\u30ec\u30fc\u30c9",
   [KEYS.fillStorage]:"\u5009\u5eab\u3092\u6e80\u305f\u3059",
   [KEYS.keepStorageFull]:"\u5009\u5eab\u3092\u5e38\u306b\u6e80\u676f\u306b\u7dad\u6301",
   [KEYS.maxEfficiency]:"\u4f01\u696d\u52b9\u7387\u6700\u5927",
@@ -347,7 +288,7 @@ const KO: Record<string,string> = {
   [KEYS.milestones]:"\ub9c8\uc77c\uc2a4\ud1a4",[KEYS.unlockAll]:"\uc804\uccb4 \uc7a0\uae08 \ud574\uc81c",
   [KEYS.advanceToTarget]:"\ubaa9\ud45c\uae4c\uc9c0 \uc9c4\ud589",[KEYS.targetMilestone]:"\ubaa9\ud45c",
   [KEYS.keepUnlocked]:"\uc601\uad6c \uc7a0\uae08 \ud574\uc81c \uc720\uc9c0",[KEYS.devTree]:"\uac1c\ubc1c \ud2b8\ub9ac",
-  [KEYS.addPoints]:"+ 228 \ud3ec\uc778\ud2b8",[KEYS.demand]:"\uc218\uc694",
+  [KEYS.addPoints]:"+ \ud3ec\uc778\ud2b8",[KEYS.demand]:"\uc218\uc694",
   [KEYS.residential]:"\uc8fc\uac70",[KEYS.commercial]:"\uc0c1\uc5c5",
   [KEYS.industrial]:"\uc0b0\uc5c5",[KEYS.office]:"\uc0ac\ubb34\uc2e4",
   [KEYS.low]:"\ub0ae\uc74c",[KEYS.medium]:"\uc911\uac04",[KEYS.high]:"\ub192\uc74c",
@@ -358,16 +299,8 @@ const KO: Record<string,string> = {
   [KEYS.tourists]:"\uad00\uad11\uac1d \uc99d\uac00",[KEYS.touristMult]:"\uad00\uad11\uac1d \ubc30\uc728",
   [KEYS.maxHappiness]:"\uc2dc\ubbfc \ud589\ubcf5\ub3c4 \ucd5c\ub300",
   [KEYS.richCitizens]:"\ubd80\uc720\ud55c \uc2dc\ubbfc",
-  [KEYS.maxEducation]:"\ucd5c\ub300 \uad50\uc721",
-  [KEYS.overrideEducation]:"교육 분포",
-  [KEYS.eduUneducated]:"무학력",
-  [KEYS.eduPoorly]:"낙은 학력",
-  [KEYS.eduEducated]:"학력 있음",
-  [KEYS.eduWell]:"높은 학력",
-  [KEYS.eduHighly]:"최고 학력",
-  [KEYS.infoMaxEducation]:"\ubaa8\ub4e0 \uc2dc\ubbfc\uc774 \ucd5c\ub300 \uad50\uc721 \uc218\uc900\uc785\ub2c8\ub2e4 (\ub808\ubca8 4)",
   [KEYS.buildings]:"\uac74\ubb3c",
-  [KEYS.upgradeAll]:"\uc804\uccb4 \ub808\ubca8 5\ub85c \uc5c5\uadf8\ub808\uc774\ub4dc",
+  [KEYS.upgradeAll]:"\uc804\uccb4 Lv\ub85c \uc5c5\uadf8\ub808\uc774\ub4dc",
   [KEYS.fillStorage]:"\ucc3d\uace0 \ucc44\uc6b0\uae30",
   [KEYS.keepStorageFull]:"\ucc3d\uace0 \ud56d\uc0c1 \uac00\ub4dd \uc720\uc9c0",
   [KEYS.maxEfficiency]:"\uae30\uc5c5 \ud6a8\uc728 \ucd5c\ub300",
@@ -389,7 +322,7 @@ const PL: Record<string,string> = {
   [KEYS.milestones]:"Kamienie milowe",[KEYS.unlockAll]:"Odblokuj wszystko",
   [KEYS.advanceToTarget]:"Awansuj do",[KEYS.targetMilestone]:"Cel",
   [KEYS.keepUnlocked]:"Utrzymuj stale odblokowane",[KEYS.devTree]:"Drzewo rozwoju",
-  [KEYS.addPoints]:"+ 228 Punkt\u00f3w",[KEYS.demand]:"Popyt",
+  [KEYS.addPoints]:"+ Punkt\u00f3w",[KEYS.demand]:"Popyt",
   [KEYS.residential]:"Mieszkaniowy",[KEYS.commercial]:"Handlowy",
   [KEYS.industrial]:"Przemys\u0142owy",[KEYS.office]:"Biurowy",
   [KEYS.low]:"Niski",[KEYS.medium]:"\u015aredni",[KEYS.high]:"Wysoki",
@@ -400,16 +333,8 @@ const PL: Record<string,string> = {
   [KEYS.tourists]:"Zwi\u0119ksz turyst\u00f3w",[KEYS.touristMult]:"Mno\u017cnik turyst\u00f3w",
   [KEYS.maxHappiness]:"Maks. szcz\u0119\u015bcie obywateli",
   [KEYS.richCitizens]:"Bogaci obywatele",
-  [KEYS.maxEducation]:"Maksymalna edukacja",
-  [KEYS.overrideEducation]:"Rozkład edukacji",
-  [KEYS.eduUneducated]:"Bez wykształcenia",
-  [KEYS.eduPoorly]:"Słabo wykształcony",
-  [KEYS.eduEducated]:"Wykształcony",
-  [KEYS.eduWell]:"Dobrze wykształcony",
-  [KEYS.eduHighly]:"Wysoko wykształcony",
-  [KEYS.infoMaxEducation]:"Wszyscy obywatele maj\u0105 maksymaln\u0105 edukacj\u0119 (Poziom 4)",
   [KEYS.buildings]:"Budynki",
-  [KEYS.upgradeAll]:"Ulepsz wszystko do poziomu 5",
+  [KEYS.upgradeAll]:"Ulepsz wszystko do poziomu",
   [KEYS.fillStorage]:"Wype\u0142nij magazyn",
   [KEYS.keepStorageFull]:"Utrzymuj magazyn pe\u0142ny",
   [KEYS.maxEfficiency]:"Maks. wydajno\u015b\u0107 firm",
@@ -442,16 +367,8 @@ const PT: Record<string,string> = {
   [KEYS.tourists]:"Aumentar turistas",[KEYS.touristMult]:"Multiplicador de turistas",
   [KEYS.maxHappiness]:"Felicidade m\u00e1xima cidad\u00e3os",
   [KEYS.richCitizens]:"Cidad\u00e3os ricos",
-  [KEYS.maxEducation]:"Educa\u00e7\u00e3o m\u00e1xima",
-  [KEYS.overrideEducation]:"Distribuição de educação",
-  [KEYS.eduUneducated]:"Sem educação",
-  [KEYS.eduPoorly]:"Pouco educado",
-  [KEYS.eduEducated]:"Educado",
-  [KEYS.eduWell]:"Bem educado",
-  [KEYS.eduHighly]:"Altamente educado",
-  [KEYS.infoMaxEducation]:"Todos os cidad\u00e3os t\u00eam educa\u00e7\u00e3o m\u00e1xima (N\u00edvel 4)",
   [KEYS.buildings]:"Edif\u00edcios",
-  [KEYS.upgradeAll]:"Melhorar tudo para n\u00edvel 5",
+  [KEYS.upgradeAll]:"Melhorar tudo para n\u00edvel",
   [KEYS.fillStorage]:"Encher armaz\u00e9m",
   [KEYS.keepStorageFull]:"Manter armaz\u00e9m sempre cheio",
   [KEYS.maxEfficiency]:"Efici\u00eancia m\u00e1x empresas",
@@ -473,7 +390,7 @@ const RU: Record<string,string> = {
   [KEYS.milestones]:"\u0412\u0435\u0445\u0438",[KEYS.unlockAll]:"\u0420\u0430\u0437\u0431\u043b\u043e\u043a\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0432\u0441\u0451",
   [KEYS.advanceToTarget]:"\u041f\u0440\u043e\u0434\u0432\u0438\u043d\u0443\u0442\u044c \u0434\u043e",[KEYS.targetMilestone]:"\u0426\u0435\u043b\u044c",
   [KEYS.keepUnlocked]:"\u0414\u0435\u0440\u0436\u0430\u0442\u044c \u0440\u0430\u0437\u0431\u043b\u043e\u043a\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u043c",[KEYS.devTree]:"\u0414\u0435\u0440\u0435\u0432\u043e \u0440\u0430\u0437\u0432\u0438\u0442\u0438\u044f",
-  [KEYS.addPoints]:"+ 228 \u041e\u0447\u043a\u043e\u0432",[KEYS.demand]:"\u0421\u043f\u0440\u043e\u0441",
+  [KEYS.addPoints]:"+ \u041e\u0447\u043a\u043e\u0432",[KEYS.demand]:"\u0421\u043f\u0440\u043e\u0441",
   [KEYS.residential]:"\u0416\u0438\u043b\u043e\u0439",[KEYS.commercial]:"\u041a\u043e\u043c\u043c\u0435\u0440\u0447\u0435\u0441\u043a\u0438\u0439",
   [KEYS.industrial]:"\u041f\u0440\u043e\u043c\u044b\u0448\u043b\u0435\u043d\u043d\u044b\u0439",[KEYS.office]:"\u041e\u0444\u0438\u0441\u043d\u044b\u0439",
   [KEYS.low]:"\u041d\u0438\u0437\u043a\u0438\u0439",[KEYS.medium]:"\u0421\u0440\u0435\u0434\u043d\u0438\u0439",[KEYS.high]:"\u0412\u044b\u0441\u043e\u043a\u0438\u0439",
@@ -484,16 +401,8 @@ const RU: Record<string,string> = {
   [KEYS.tourists]:"\u0423\u0432\u0435\u043b\u0438\u0447\u0438\u0442\u044c \u0442\u0443\u0440\u0438\u0441\u0442\u043e\u0432",[KEYS.touristMult]:"\u041c\u043d\u043e\u0436\u0438\u0442\u0435\u043b\u044c \u0442\u0443\u0440\u0438\u0441\u0442\u043e\u0432",
   [KEYS.maxHappiness]:"\u041c\u0430\u043a\u0441. \u0441\u0447\u0430\u0441\u0442\u044c\u0435 \u0433\u0440\u0430\u0436\u0434\u0430\u043d",
   [KEYS.richCitizens]:"\u0411\u043e\u0433\u0430\u0442\u044b\u0435 \u0433\u0440\u0430\u0436\u0434\u0430\u043d\u0435",
-  [KEYS.maxEducation]:"\u041c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u043e\u0435 \u043e\u0431\u0440\u0430\u0437\u043e\u0432\u0430\u043d\u0438\u0435",
-  [KEYS.overrideEducation]:"Распределение образования",
-  [KEYS.eduUneducated]:"Без образования",
-  [KEYS.eduPoorly]:"Малообразованный",
-  [KEYS.eduEducated]:"Образованный",
-  [KEYS.eduWell]:"Хорошо образованный",
-  [KEYS.eduHighly]:"Высокообразованный",
-  [KEYS.infoMaxEducation]:"\u0412\u0441\u0435 \u0433\u0440\u0430\u0436\u0434\u0430\u043d\u0435 \u0438\u043c\u0435\u044e\u0442 \u043c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u043e\u0435 \u043e\u0431\u0440\u0430\u0437\u043e\u0432\u0430\u043d\u0438\u0435 (\u0423\u0440\u043e\u0432\u0435\u043d\u044c 4)",
   [KEYS.buildings]:"\u0417\u0434\u0430\u043d\u0438\u044f",
-  [KEYS.upgradeAll]:"\u0423\u043b\u0443\u0447\u0448\u0438\u0442\u044c \u0432\u0441\u0451 \u0434\u043e \u0443\u0440\u043e\u0432\u043d\u044f 5",
+  [KEYS.upgradeAll]:"\u0423\u043b\u0443\u0447\u0448\u0438\u0442\u044c \u0432\u0441\u0451 \u0434\u043e \u0443\u0440\u043e\u0432\u043d\u044f",
   [KEYS.fillStorage]:"\u0417\u0430\u043f\u043e\u043b\u043d\u0438\u0442\u044c \u0441\u043a\u043b\u0430\u0434",
   [KEYS.keepStorageFull]:"\u0414\u0435\u0440\u0436\u0430\u0442\u044c \u0441\u043a\u043b\u0430\u0434 \u043f\u043e\u0441\u0442\u043e\u044f\u043d\u043d\u043e \u043f\u043e\u043b\u043d\u044b\u043c",
   [KEYS.maxEfficiency]:"\u041c\u0430\u043a\u0441. \u044d\u0444\u0444\u0435\u043a\u0442\u0438\u0432\u043d\u043e\u0441\u0442\u044c \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u0439",
@@ -515,7 +424,7 @@ const ZH_HANS: Record<string,string> = {
   [KEYS.milestones]:"\u91cc\u7a0b\u7891",[KEYS.unlockAll]:"\u5168\u90e8\u89e3\u9501",
   [KEYS.advanceToTarget]:"\u63a8\u8fdb\u5230",[KEYS.targetMilestone]:"\u76ee\u6807",
   [KEYS.keepUnlocked]:"\u6c38\u4e45\u4fdd\u6301\u89e3\u9501",[KEYS.devTree]:"\u53d1\u5c55\u6811",
-  [KEYS.addPoints]:"+ 228 \u70b9\u6570",[KEYS.demand]:"\u9700\u6c42",
+  [KEYS.addPoints]:"+ \u70b9\u6570",[KEYS.demand]:"\u9700\u6c42",
   [KEYS.residential]:"\u4f4f\u5b85",[KEYS.commercial]:"\u5546\u4e1a",
   [KEYS.industrial]:"\u5de5\u4e1a",[KEYS.office]:"\u529e\u516c",
   [KEYS.low]:"\u4f4e",[KEYS.medium]:"\u4e2d",[KEYS.high]:"\u9ad8",
@@ -526,16 +435,8 @@ const ZH_HANS: Record<string,string> = {
   [KEYS.tourists]:"\u589e\u52a0\u6e38\u5ba2",[KEYS.touristMult]:"\u6e38\u5ba2\u500d\u7387",
   [KEYS.maxHappiness]:"\u5e02\u6c11\u5e78\u798f\u5ea6\u6700\u5927",
   [KEYS.richCitizens]:"\u5bcc\u88d5\u5e02\u6c11",
-  [KEYS.maxEducation]:"\u6700\u9ad8\u6559\u80b2\u6c34\u5e73",
-  [KEYS.overrideEducation]:"教育分布",
-  [KEYS.eduUneducated]:"未受教育",
-  [KEYS.eduPoorly]:"教育程度低",
-  [KEYS.eduEducated]:"受过教育",
-  [KEYS.eduWell]:"教育程度高",
-  [KEYS.eduHighly]:"受过高等教育",
-  [KEYS.infoMaxEducation]:"\u6240\u6709\u5e02\u6c11\u62e5\u6709\u6700\u9ad8\u6559\u80b2\u6c34\u5e73\uff084\u7ea7\uff09",
   [KEYS.buildings]:"\u5efa\u7b51",
-  [KEYS.upgradeAll]:"\u5168\u90e8\u5347\u7ea7\u52305\u7ea7",
+  [KEYS.upgradeAll]:"\u5168\u90e8\u5347\u81f3Lv",
   [KEYS.fillStorage]:"\u586b\u6ee1\u4ed3\u5e93",
   [KEYS.keepStorageFull]:"\u4fdd\u6301\u4ed3\u5e93\u59cb\u7ec8\u6ee1\u8f7d",
   [KEYS.maxEfficiency]:"\u4f01\u4e1a\u6548\u7387\u6700\u5927",
@@ -557,7 +458,7 @@ const ZH_HANT: Record<string,string> = {
   [KEYS.milestones]:"\u91cc\u7a0b\u7891",[KEYS.unlockAll]:"\u5168\u90e8\u89e3\u9396",
   [KEYS.advanceToTarget]:"\u63a8\u9032\u5230",[KEYS.targetMilestone]:"\u76ee\u6a19",
   [KEYS.keepUnlocked]:"\u6c38\u4e45\u4fdd\u6301\u89e3\u9396",[KEYS.devTree]:"\u767c\u5c55\u6a39",
-  [KEYS.addPoints]:"+ 228 \u9ede\u6578",[KEYS.demand]:"\u9700\u6c42",
+  [KEYS.addPoints]:"+ \u9ede\u6578",[KEYS.demand]:"\u9700\u6c42",
   [KEYS.residential]:"\u4f4f\u5b85",[KEYS.commercial]:"\u5546\u696d",
   [KEYS.industrial]:"\u5de5\u696d",[KEYS.office]:"\u8fa6\u516c",
   [KEYS.low]:"\u4f4e",[KEYS.medium]:"\u4e2d",[KEYS.high]:"\u9ad8",
@@ -568,16 +469,8 @@ const ZH_HANT: Record<string,string> = {
   [KEYS.tourists]:"\u589e\u52a0\u904a\u5ba2",[KEYS.touristMult]:"\u904a\u5ba2\u500d\u7387",
   [KEYS.maxHappiness]:"\u5e02\u6c11\u5e78\u798f\u5ea6\u6700\u5927",
   [KEYS.richCitizens]:"\u5bcc\u88d5\u5e02\u6c11",
-  [KEYS.maxEducation]:"\u6700\u9ad8\u6559\u80b2\u6c34\u6e96",
-  [KEYS.overrideEducation]:"教育分布",
-  [KEYS.eduUneducated]:"未受教育",
-  [KEYS.eduPoorly]:"教育程度低",
-  [KEYS.eduEducated]:"受過教育",
-  [KEYS.eduWell]:"教育程度高",
-  [KEYS.eduHighly]:"受過高等教育",
-  [KEYS.infoMaxEducation]:"\u6240\u6709\u5e02\u6c11\u64c1\u6709\u6700\u9ad8\u6559\u80b2\u6c34\u6e96\uff084\u7d1a\uff09",
   [KEYS.buildings]:"\u5efa\u7bc9",
-  [KEYS.upgradeAll]:"\u5168\u90e8\u5347\u7d1a\u52305\u7d1a",
+  [KEYS.upgradeAll]:"\u5168\u90e8\u5347\u81f3Lv",
   [KEYS.fillStorage]:"\u586b\u6eff\u5009\u5eab",
   [KEYS.keepStorageFull]:"\u4fdd\u6301\u5009\u5eab\u59cb\u7d42\u6eff\u8f09",
   [KEYS.maxEfficiency]:"\u4f01\u696d\u6548\u7387\u6700\u5927",
@@ -664,7 +557,7 @@ function AppearanceSection({color, onChange, t}: {color:string, onChange:(c:stri
             boxShadow:hex===color?"0 0 0 2px rgba(255,255,255,0.12)":"none",
           }}/>
         ))}
-        <span onClick={()=>{onChange(DEFAULT_BG);setInputVal(DEFAULT_BG);}} style={{marginLeft:"auto",fontSize:"13rem",color:C.textMuted,cursor:"pointer",textDecoration:"underline",flexShrink:0,paddingRight:"32rem"}}>
+        <span onClick={()=>{onChange(DEFAULT_BG);setInputVal(DEFAULT_BG);}} style={{marginLeft:"auto",fontSize:"10rem",color:C.textMuted,cursor:"pointer",textDecoration:"underline",flexShrink:0,paddingRight:"4rem"}}>
           {t(KEYS.colorReset)}
         </span>
       </div>
@@ -687,7 +580,7 @@ function AppearanceSection({color, onChange, t}: {color:string, onChange:(c:stri
           onBlur={()=>{if(!/^#[0-9a-fA-F]{6}$/.test(inputVal))setInputVal(color);}}
           style={{background:"rgba(255,255,255,0.06)",border:`1px solid ${C.border}`,borderRadius:"4rem",color:C.textPrimary,fontSize:"11rem",padding:"4rem 8rem",width:"75rem",outline:"none"}}
         />
-        <span style={{fontSize:"13rem",color:C.textMuted,marginLeft:"6rem"}}>{t(KEYS.panelColor)}</span>
+        <span style={{fontSize:"10rem",color:C.textMuted,marginLeft:"6rem"}}>{t(KEYS.panelColor)}</span>
       </div>
     </Section>
   );
@@ -760,7 +653,7 @@ function Slider({value,label,onChange,min=0,max=100}:{value:number;label?:string
   const onChangeRef=useRef(onChange);
   onChangeRef.current=onChange;
   const onMouseDown=useCallback((e:React.MouseEvent)=>{
-    e.stopPropagation();
+    e.stopPropagation();e.preventDefault();
     const calc=(clientX:number)=>{
       const el=trackRef.current;if(!el)return;
       const r=el.getBoundingClientRect();
@@ -768,7 +661,7 @@ function Slider({value,label,onChange,min=0,max=100}:{value:number;label?:string
       onChangeRef.current(Math.round(min+pct*(max-min)));
     };
     calc(e.clientX);
-    const mv=(ev:MouseEvent)=>{calc(ev.clientX);};
+    const mv=(ev:MouseEvent)=>{ev.preventDefault();calc(ev.clientX);};
     const up=()=>{window.removeEventListener("mousemove",mv);window.removeEventListener("mouseup",up);};
     window.addEventListener("mousemove",mv);window.addEventListener("mouseup",up);
   },[min,max]);
@@ -801,7 +694,7 @@ function DemandBlock({t,label,override,onToggle,forceBuild,onForceBuild,forceBui
       <div style={{display:"flex",alignItems:"center",gap:"8rem",padding:"7rem 10rem"}}>
         <span style={{fontSize:"12rem",fontWeight:500,color:active?C.textPrimary:C.textSecond,flex:"1 1 0",minWidth:0,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap" as const,transition:"color 0.14s"}}>{label}</span>
         <Toggle value={forceBuild} onChange={onForceBuild} accent/>
-        <span style={{fontSize:"13rem",color:forceBuild?C.orange:C.textMuted,flexShrink:0,minWidth:"60rem",marginLeft:"6rem",marginRight:"2rem"}}>{forceBuildLabel}</span>
+        <span style={{fontSize:"10rem",color:forceBuild?C.orange:C.textMuted,flexShrink:0,minWidth:"60rem",marginLeft:"6rem",marginRight:"2rem"}}>{forceBuildLabel}</span>
         <Toggle value={override} onChange={onToggle}/>
       </div>
       {override&&!forceBuild&&(
@@ -810,7 +703,7 @@ function DemandBlock({t,label,override,onToggle,forceBuild,onForceBuild,forceBui
           {dual&&<>{onLow&&<Slider value={valueLow??0} label={labelLow}  onChange={onLow}/>}{onMed&&<Slider value={valueMed??0} label={labelMed}  onChange={onMed}/>}{onHigh&&<Slider value={valueHigh??0} label={labelHigh} onChange={onHigh}/>}</>}
         </div>
       )}
-      {forceBuild&&(<div style={{padding:"2rem 10rem 8rem"}}><div style={{fontSize:"13rem",color:C.orange,background:"rgba(212,144,96,0.08)",border:"1px solid rgba(212,144,96,0.15)",borderRadius:"4rem",padding:"4rem 8rem",textAlign:"center"}}>{t(KEYS.infoForceBuild)}</div></div>)}
+      {forceBuild&&(<div style={{padding:"2rem 10rem 8rem"}}><div style={{fontSize:"10rem",color:C.orange,background:"rgba(212,144,96,0.08)",border:"1px solid rgba(212,144,96,0.15)",borderRadius:"4rem",padding:"4rem 8rem",textAlign:"center"}}>{t(KEYS.infoForceBuild)}</div></div>)}
     </div>
   );
 }
@@ -836,7 +729,7 @@ function ConstructionSection({t,instantConstruction,speedIndex,trig}:{t:(k:strin
   return (
     <Section icon={<IconHammer/>} title={t(KEYS.construction)}>
       <ToggleRow label={t(KEYS.instantBuild)} value={instantConstruction} onChange={v=>trig("SetInstantConstruction",v)}/>
-      {instantConstruction&&(<div style={{fontSize:"13rem",color:C.cyan,background:"rgba(91,191,207,0.08)",border:"1px solid rgba(91,191,207,0.20)",borderRadius:"4rem",padding:"4rem 8rem",textAlign:"center"}}>{t(KEYS.infoInstantBuild)}</div>)}
+      {instantConstruction&&(<div style={{fontSize:"10rem",color:C.cyan,background:"rgba(91,191,207,0.08)",border:"1px solid rgba(91,191,207,0.20)",borderRadius:"4rem",padding:"4rem 8rem",textAlign:"center"}}>{t(KEYS.infoInstantBuild)}</div>)}
       <Divider/>
       <div style={{display:"flex",flexDirection:"column" as const,gap:"6rem"}}>
         <span style={{fontSize:"11rem",color:C.textMuted}}>{t(KEYS.buildSpeed)}</span>
@@ -848,8 +741,8 @@ function ConstructionSection({t,instantConstruction,speedIndex,trig}:{t:(k:strin
   );
 }
 
-function PopulationSection({t,overrideMoveIn,moveInMult,overrideTourists,touristMult,maxHappiness,richCitizens,maxEducation,overrideEducation,eduLevel0,eduLevel1,eduLevel2,eduLevel3,eduLevel4,trig}:{
-  t:(k:string)=>string;overrideMoveIn:boolean;moveInMult:number;overrideTourists:boolean;touristMult:number;maxHappiness:boolean;richCitizens:boolean;maxEducation:boolean;overrideEducation:boolean;eduLevel0:number;eduLevel1:number;eduLevel2:number;eduLevel3:number;eduLevel4:number;trig:(name:string,...args:unknown[])=>void;
+function PopulationSection({t,overrideMoveIn,moveInMult,overrideTourists,touristMult,maxHappiness,richCitizens,trig}:{
+  t:(k:string)=>string;overrideMoveIn:boolean;moveInMult:number;overrideTourists:boolean;touristMult:number;maxHappiness:boolean;richCitizens:boolean;trig:(name:string,...args:unknown[])=>void;
 }) {
   return (
     <Section icon={<IconPeople/>} title={t(KEYS.population)}>
@@ -861,32 +754,25 @@ function PopulationSection({t,overrideMoveIn,moveInMult,overrideTourists,tourist
       {overrideTourists&&(<Slider value={touristMult} label={t(KEYS.touristMult)} min={1} max={10} onChange={v=>trig("SetTouristMultiplier",v)}/>)}
       <Divider/>
       <ToggleRow label={t(KEYS.maxHappiness)} value={maxHappiness} onChange={v=>trig("SetMaxHappiness",v)}/>
-      {maxHappiness&&(<div style={{fontSize:"13rem",color:C.green,background:"rgba(110,201,122,0.08)",border:"1px solid rgba(110,201,122,0.20)",borderRadius:"4rem",padding:"4rem 8rem",textAlign:"center"}}>{t(KEYS.infoHappiness)}</div>)}
+      {maxHappiness&&(<div style={{fontSize:"10rem",color:C.green,background:"rgba(110,201,122,0.08)",border:"1px solid rgba(110,201,122,0.20)",borderRadius:"4rem",padding:"4rem 8rem",textAlign:"center"}}>{t(KEYS.infoHappiness)}</div>)}
       <Divider/>
       <ToggleRow label={t(KEYS.richCitizens)} value={richCitizens} onChange={v=>trig("SetRichCitizens",v)}/>
-      {richCitizens&&(<div style={{fontSize:"13rem",color:C.gold,background:"rgba(200,168,75,0.08)",border:"1px solid rgba(200,168,75,0.20)",borderRadius:"4rem",padding:"4rem 8rem",textAlign:"center"}}>{t(KEYS.infoRichCitizens)}</div>)}
-      <Divider/>
-      <ToggleRow label={t(KEYS.maxEducation)} value={maxEducation} onChange={v=>trig("SetMaxEducation",v)}/>
-      {maxEducation&&(<div style={{fontSize:"13rem",color:C.gold,background:"rgba(200,168,75,0.08)",border:"1px solid rgba(200,168,75,0.20)",borderRadius:"4rem",padding:"4rem 8rem",textAlign:"center"}}>{t(KEYS.infoMaxEducation)}</div>)}
-      <Divider/>
-      <ToggleRow label={t(KEYS.overrideEducation)} value={overrideEducation} onChange={v=>trig("SetOverrideEducation",v)}/>
-      {overrideEducation&&(<div style={{paddingTop:"4rem"}}>
-        <Slider value={eduLevel0} label={t(KEYS.eduUneducated)} min={0} max={100} onChange={v=>trig("SetEduLevel0",v)}/>
-        <Slider value={eduLevel1} label={t(KEYS.eduPoorly)} min={0} max={100} onChange={v=>trig("SetEduLevel1",v)}/>
-        <Slider value={eduLevel2} label={t(KEYS.eduEducated)} min={0} max={100} onChange={v=>trig("SetEduLevel2",v)}/>
-        <Slider value={eduLevel3} label={t(KEYS.eduWell)} min={0} max={100} onChange={v=>trig("SetEduLevel3",v)}/>
-        <Slider value={eduLevel4} label={t(KEYS.eduHighly)} min={0} max={100} onChange={v=>trig("SetEduLevel4",v)}/>
-        <div style={{fontSize:"11rem",color:C.textMuted,textAlign:"center",marginTop:"4rem"}}>{`${t(KEYS.eduUneducated)[0]}: ${eduLevel0} / ${t(KEYS.eduPoorly)[0]}: ${eduLevel1} / ${t(KEYS.eduEducated)[0]}: ${eduLevel2} / ${t(KEYS.eduWell)[0]}: ${eduLevel3} / ${t(KEYS.eduHighly)[0]}: ${eduLevel4} = ${eduLevel0+eduLevel1+eduLevel2+eduLevel3+eduLevel4}`}</div>
-      </div>)}
+      {richCitizens&&(<div style={{fontSize:"10rem",color:C.gold,background:"rgba(200,168,75,0.08)",border:"1px solid rgba(200,168,75,0.20)",borderRadius:"4rem",padding:"4rem 8rem",textAlign:"center"}}>{t(KEYS.infoRichCitizens)}</div>)}
     </Section>
   );
 }
 
-function BuildingsSection({t,maxCompanyEfficiency,resetOnNewMap,buildingLevelAvailable,keepStorageFull,trig}:{t:(k:string)=>string;maxCompanyEfficiency:boolean;resetOnNewMap:boolean;buildingLevelAvailable:boolean;keepStorageFull:boolean;trig:(name:string,...args:unknown[])=>void;}) {
+function BuildingsSection({t,maxCompanyEfficiency,resetOnNewMap,buildingLevelAvailable,buildingTargetLevel,keepStorageFull,trig}:{t:(k:string)=>string;maxCompanyEfficiency:boolean;resetOnNewMap:boolean;buildingLevelAvailable:boolean;buildingTargetLevel:number;keepStorageFull:boolean;trig:(name:string,...args:unknown[])=>void;}) {
   return (
     <Section icon={<IconBuilding/>} title={t(KEYS.buildings)}>
+      <div style={{display:"flex",flexDirection:"column" as const,gap:"6rem",marginBottom:"5rem"}}>
+        <span style={{fontSize:"11rem",color:C.textMuted}}>{t(KEYS.buildingTargetLevel)}</span>
+        <div style={{display:"flex",gap:"5rem"}}>
+          {[1,2,3,4,5].map(l=>(<Btn key={l} variant={buildingTargetLevel===l?"gold":"default"} active={buildingTargetLevel===l} onClick={()=>trig("SetBuildingTargetLevel",l)}>{""+l}</Btn>))}
+        </div>
+      </div>
       {buildingLevelAvailable
-        ? <Btn variant="gold" fullWidth onClick={()=>trig("UpgradeAllBuildings")}>{t(KEYS.upgradeAll)}</Btn>
+        ? <Btn variant="gold" fullWidth onClick={()=>trig("UpgradeAllBuildings")}>{t(KEYS.upgradeAll)} {buildingTargetLevel}</Btn>
         : <div style={{borderRadius:"5rem",background:"rgba(200,168,75,0.05)",border:"1px solid rgba(200,168,75,0.15)",padding:"7rem 12rem",fontSize:"11rem",color:"rgba(200,168,75,0.45)",textAlign:"center" as const,cursor:"not-allowed",display:"flex",alignItems:"center",justifyContent:"center",gap:"6rem"}}>
             <svg width="11" height="11" viewBox="0 0 16 16" fill="none" style={{animation:"spin 1.2s linear infinite",flexShrink:0}}><circle cx="8" cy="8" r="5.5" stroke="rgba(200,168,75,0.35)" strokeWidth="1.5"/><path d="M8 2.5A5.5 5.5 0 0113.5 8" stroke="rgba(200,168,75,0.70)" strokeWidth="1.5" strokeLinecap="round"/></svg>
             {t(KEYS.upgradeAll)} – {t(KEYS.infoUpgradeLoading)}
@@ -898,10 +784,10 @@ function BuildingsSection({t,maxCompanyEfficiency,resetOnNewMap,buildingLevelAva
       <ToggleRow label={t(KEYS.keepStorageFull)} value={keepStorageFull} onChange={v=>trig("SetKeepStorageFull",v)}/>
       <Divider/>
       <ToggleRow label={t(KEYS.maxEfficiency)} value={maxCompanyEfficiency} onChange={v=>trig("SetMaxCompanyEfficiency",v)}/>
-      {maxCompanyEfficiency&&(<div style={{fontSize:"13rem",color:C.teal,background:"rgba(77,196,176,0.08)",border:"1px solid rgba(77,196,176,0.20)",borderRadius:"4rem",padding:"4rem 8rem",textAlign:"center"}}>{t(KEYS.infoEfficiency)}</div>)}
+      {maxCompanyEfficiency&&(<div style={{fontSize:"10rem",color:C.teal,background:"rgba(77,196,176,0.08)",border:"1px solid rgba(77,196,176,0.20)",borderRadius:"4rem",padding:"4rem 8rem",textAlign:"center"}}>{t(KEYS.infoEfficiency)}</div>)}
       <Divider/>
       <ToggleRow label={t(KEYS.resetOnNewMap)} value={resetOnNewMap} onChange={v=>trig("SetResetOnNewMap",v)}/>
-      {resetOnNewMap&&(<div style={{fontSize:"13rem",color:C.textMuted,background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:"4rem",padding:"4rem 8rem",textAlign:"center"}}>{t(KEYS.infoResetOnNewMap)}</div>)}
+      {resetOnNewMap&&(<div style={{fontSize:"10rem",color:C.textMuted,background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:"4rem",padding:"4rem 8rem",textAlign:"center"}}>{t(KEYS.infoResetOnNewMap)}</div>)}
     </Section>
   );
 }
@@ -909,7 +795,7 @@ function BuildingsSection({t,maxCompanyEfficiency,resetOnNewMap,buildingLevelAva
 function ResizeHandle({onResize}:{onResize:(dx:number,dy:number)=>void;}) {
   const [hov,setHov]=useState(false);
   const onMouseDown=useCallback((e:React.MouseEvent)=>{
-    e.stopPropagation();
+    e.stopPropagation();e.preventDefault();
     let lx=e.clientX,ly=e.clientY;
     const mv=(ev:MouseEvent)=>{onResize(ev.clientX-lx,ev.clientY-ly);lx=ev.clientX;ly=ev.clientY;};
     const up=()=>{window.removeEventListener("mousemove",mv);window.removeEventListener("mouseup",up);};
@@ -980,19 +866,14 @@ function CityForgePanel() {
   const touristMult           =useValue(TouristMultiplier$);
   const maxHappiness          =useValue(MaxHappiness$);
   const richCitizens          =useValue(RichCitizens$);
-  const maxEducation          =useValue(MaxEducation$);
-  const overrideEducation     =useValue(OverrideEducation$) as boolean;
-  const eduLevel0             =useValue(EduLevel0$) as number;
-  const eduLevel1             =useValue(EduLevel1$) as number;
-  const eduLevel2             =useValue(EduLevel2$) as number;
-  const eduLevel3             =useValue(EduLevel3$) as number;
-  const eduLevel4             =useValue(EduLevel4$) as number;
   const maxCompanyEfficiency  =useValue(MaxCompanyEfficiency$);
   const resetOnNewMap         =useValue(ResetOnNewMap$);
   const buildingLevelAvailable=useValue(BuildingLevelAvailable$);
+  const buildingTargetLevel   =useValue(BuildingTargetLevel$);
   const keepStorageFull       =useValue(KeepStorageFull$);
   const panelBgColor          =useValue(PanelBgColor$);
 
+  // Inject font-family once — uses fonts already preloaded by the game engine (coui://preloaded/fonts/)
   useEffect(() => {
     if (document.getElementById("cityforge-fonts")) return;
     const s = document.createElement("style");
@@ -1001,25 +882,20 @@ function CityForgePanel() {
     document.head.appendChild(s);
   }, []);
 
+  const dragging   =useRef(false);
   const dragOffset =useRef({x:0,y:0});
-  const sizeRef    =useRef({w:380,h:600});
   const [pos,setPos]   =useState({x:320,y:100});
   const [size,setSize] =useState({w:380,h:600});
-  sizeRef.current = size;
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    if (panelVisible) { setMounted(true); }
-    else { const t = setTimeout(() => setMounted(false), 200); return () => clearTimeout(t); }
-  }, [panelVisible]);
 
-  const dragging   =useRef(false);
   const onHeaderMouseDown=useCallback((e:React.MouseEvent)=>{
     dragging.current=true;dragOffset.current={x:e.clientX-pos.x,y:e.clientY-pos.y};e.preventDefault();
   },[pos]);
+
   const onMouseMove=useCallback((e:React.MouseEvent)=>{
     if(!dragging.current)return;
     setPos({x:Math.max(MARGIN,Math.min(window.innerWidth-size.w-MARGIN,e.clientX-dragOffset.current.x)),y:Math.max(MARGIN,Math.min(window.innerHeight-size.h-MARGIN,e.clientY-dragOffset.current.y))});
   },[size]);
+
   const onMouseUp  =useCallback(()=>{dragging.current=false;},[]);
   const onResize   =useCallback((dx:number,dy:number)=>{
     setSize(s=>({w:Math.max(MIN_W,Math.min(MAX_W,s.w+dx)),h:Math.max(MIN_H,Math.min(window.innerHeight-2*MARGIN,s.h+dy))}));
@@ -1039,14 +915,16 @@ function CityForgePanel() {
       onMouseMove={panelVisible ? onMouseMove : undefined}
       onMouseUp={panelVisible ? onMouseUp : undefined}
       onMouseLeave={panelVisible ? onMouseUp : undefined}
-      style={{position:"fixed" as const,left:`${pos.x}px`,top:`${pos.y}px`,width:`${size.w}px`,height:`${size.h}px`,minWidth:`${MIN_W}px`,maxWidth:`${MAX_W}px`,minHeight:`${MIN_H}px`,background:hexToRgba(panelBgColor||DEFAULT_BG),border:`1px solid ${C.border}`,borderRadius:"10rem",boxShadow:"0 10rem 40rem rgba(0,0,0,0.75)",fontSize:"14rem",color:C.textPrimary,userSelect:"none" as const,zIndex:9999,overflow:"hidden",flexDirection:"column" as const,
+      style={{position:"fixed" as const,left:`${pos.x}px`,top:`${pos.y}px`,width:`${size.w}px`,height:`${size.h}px`,minWidth:`${MIN_W}px`,maxWidth:`${MAX_W}px`,minHeight:`${MIN_H}px`,background:hexToRgba(panelBgColor||DEFAULT_BG),border:`1px solid ${C.border}`,borderRadius:"10rem",boxShadow:"0 10rem 40rem rgba(0,0,0,0.75)",fontSize:"14rem",color:C.textPrimary,userSelect:"none" as const,zIndex:9999,overflow:"hidden",display:"flex",flexDirection:"column" as const,
         opacity: panelVisible ? 1 : 0,
-        pointerEvents: panelVisible ? ("auto" as const) : ("none" as const),
-        display: mounted ? ("flex" as const) : ("none" as const)}}>
+        transform: panelVisible ? "scale(1) translateY(0rem)" : "scale(0.97) translateY(-8rem)",
+        transformOrigin: "top center",
+        transition: "opacity 0.16s ease, transform 0.16s ease",
+        pointerEvents: panelVisible ? ("auto" as const) : ("none" as const)}}>
 
 
       <div onMouseDown={onHeaderMouseDown} style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"10rem 14rem",borderBottom:`1px solid ${C.border}`,cursor:"grab",flexShrink:0}}>
-        <div style={{pointerEvents:"none" as const}}>
+        <div>
           <div style={{fontSize:"14rem",fontWeight:600,color:C.textPrimary,letterSpacing:"0.06em"}}>CITYFORGE</div>
           <div style={{fontSize:"11rem",color:C.textMuted,marginTop:"1rem"}}>by Venatorax</div>
         </div>
@@ -1082,7 +960,7 @@ function CityForgePanel() {
                 </Section>
               </div>
               <div style={S()}>
-                <BuildingsSection t={t} maxCompanyEfficiency={maxCompanyEfficiency} resetOnNewMap={resetOnNewMap} buildingLevelAvailable={buildingLevelAvailable} keepStorageFull={keepStorageFull} trig={trig}/>
+                <BuildingsSection t={t} maxCompanyEfficiency={maxCompanyEfficiency} resetOnNewMap={resetOnNewMap} buildingLevelAvailable={buildingLevelAvailable} buildingTargetLevel={buildingTargetLevel} keepStorageFull={keepStorageFull} trig={trig}/>
               </div>
             </div>
             <div style={{width:`${colPx}px`,flexShrink:0,marginLeft:`${gap}rem`}}>
@@ -1095,7 +973,7 @@ function CityForgePanel() {
                 <ConstructionSection t={t} instantConstruction={instantConstruction} speedIndex={constructionSpeedIndex} trig={trig}/>
               </div>
               <div style={S()}>
-                <PopulationSection t={t} overrideMoveIn={overrideMoveIn} moveInMult={moveInMult} overrideTourists={overrideTourists} touristMult={touristMult} maxHappiness={maxHappiness} richCitizens={richCitizens} maxEducation={maxEducation} overrideEducation={overrideEducation} eduLevel0={eduLevel0} eduLevel1={eduLevel1} eduLevel2={eduLevel2} eduLevel3={eduLevel3} eduLevel4={eduLevel4} trig={trig}/>
+                <PopulationSection t={t} overrideMoveIn={overrideMoveIn} moveInMult={moveInMult} overrideTourists={overrideTourists} touristMult={touristMult} maxHappiness={maxHappiness} richCitizens={richCitizens} trig={trig}/>
               </div>
             </div>
           </div>
@@ -1103,9 +981,9 @@ function CityForgePanel() {
           <div>
             <div style={S()}><Section icon={<IconTrophy/>} title={t(KEYS.milestones)}><Slider value={targetMilestone} label={t(KEYS.targetMilestone)} min={1} max={20} onChange={v=>trig("SetTargetMilestone",v)}/><div style={{marginTop:"5rem"}}><Btn variant="amber" fullWidth onClick={()=>trig("AdvanceToTarget")}>{t(KEYS.advanceToTarget)} {targetMilestone}</Btn></div><Divider/><Btn variant="default" fullWidth onClick={()=>trig("UnlockMilestones")}>{t(KEYS.unlockAll)}</Btn><Divider/><ToggleRow label={t(KEYS.keepUnlocked)} value={keepMilestones} onChange={v=>trig("SetKeepMilestones",v)}/></Section></div>
             <div style={S()}><Section icon={<IconTree/>} title={t(KEYS.devTree)}><Btn variant="purple" fullWidth onClick={()=>trig("AddDevPoints")}>{t(KEYS.addPoints)}</Btn></Section></div>
-            <div style={S()}><BuildingsSection t={t} maxCompanyEfficiency={maxCompanyEfficiency} resetOnNewMap={resetOnNewMap} buildingLevelAvailable={buildingLevelAvailable} keepStorageFull={keepStorageFull} trig={trig}/></div>
+            <div style={S()}><BuildingsSection t={t} maxCompanyEfficiency={maxCompanyEfficiency} resetOnNewMap={resetOnNewMap} buildingLevelAvailable={buildingLevelAvailable} buildingTargetLevel={buildingTargetLevel} keepStorageFull={keepStorageFull} trig={trig}/></div>
             <div style={S()}><ConstructionSection t={t} instantConstruction={instantConstruction} speedIndex={constructionSpeedIndex} trig={trig}/></div>
-            <div style={S()}><PopulationSection t={t} overrideMoveIn={overrideMoveIn} moveInMult={moveInMult} overrideTourists={overrideTourists} touristMult={touristMult} maxHappiness={maxHappiness} richCitizens={richCitizens} maxEducation={maxEducation} overrideEducation={overrideEducation} eduLevel0={eduLevel0} eduLevel1={eduLevel1} eduLevel2={eduLevel2} eduLevel3={eduLevel3} eduLevel4={eduLevel4} trig={trig}/></div>
+            <div style={S()}><PopulationSection t={t} overrideMoveIn={overrideMoveIn} moveInMult={moveInMult} overrideTourists={overrideTourists} touristMult={touristMult} maxHappiness={maxHappiness} richCitizens={richCitizens} trig={trig}/></div>
           </div>
         )}
 
