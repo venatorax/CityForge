@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.0.16 — Released 2026-04-02
+
+### Bug Fixes
+- Fixed collapsible sections not working after the v1.0.14 update.
+
+---
+
 ## v1.0.15 — Released 2026-04-02
 
 ### Bug Fixes
