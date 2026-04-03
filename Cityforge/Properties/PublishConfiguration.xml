@@ -6,7 +6,7 @@
 
 # **CityForge — All-in-One Cheat Panel**
 
-CityForge puts a button in your toolbar. Click it and a floating panel opens with every cheat you could want, organized into clear sections.
+CityForge puts a button in your toolbar. Click it and a floating panel opens with every cheat you could want, organized into collapsible sections — fold the ones you don't need and keep the rest in view.
 
 Everything saves automatically and comes back exactly as you left it next session.
 
@@ -105,7 +105,7 @@ The panel is freely **draggable** and **resizable** — drag the title bar to mo
 
 # **General**
 
-Optional setting to **show or hide the toolbar button** — toggle it in the mod settings.
+Optional setting to **show or hide the toolbar button**, toggle it in the mod settings.
 
 Optional setting to **reset all cheats when loading a new city**, so you always start fresh.
 
@@ -128,6 +128,8 @@ Bug reports and feedback are always welcome.
 CityForge fügt einen Button in die Toolbar ein. Ein Klick öffnet ein schwebendes Panel mit allen Cheats — übersichtlich in Bereiche aufgeteilt.
 
 Alle Einstellungen werden automatisch gespeichert und beim nächsten Start genau so wiederhergestellt.
+
+Alle Bereiche lassen sich einklappen — behalte nur das im Blick, was du gerade brauchst.
 
 Für Sandbox-Spieler, entspannte Stadtbauer und alle, die lieber bauen als gegen die Wirtschaft anzukämpfen.
 
@@ -224,7 +226,7 @@ Das Panel ist frei **verschiebbar** und **in der Größe veränderbar** — Tite
 
 # **Allgemein**
 
-Optional kann der **Toolbar-Button ein- oder ausgeblendet** werden — umschaltbar in den Mod-Einstellungen.
+Optional kann der **Toolbar-Button ein- oder ausgeblendet** werden, umschaltbar in den Mod-Einstellungen.
 
 Optional können **alle Cheats beim Laden einer neuen Karte zurückgesetzt** werden.
 
@@ -247,11 +249,11 @@ Bugreports und Feedback sind jederzeit willkommen.
 	<Screenshot Value="Assets/Screenshot6.png" />
 	<Tag Value="Code Mod" />
 	<ForumLink Value="https://forum.paradoxplaza.com/forum/threads/cheatbox-cheat-panel-for-money-demand-construction-more.1906532/" />
-	<ModVersion Value="1.0.15" />
+	<ModVersion Value="1.0.17" />
 	<GameVersion Value="1.*.*" />
 	<Dependency Id="" />
 	<RequiredDLC Value="" />
-	<ChangeLog Value="v1.0.15&#10;&#10;BUG FIXES&#10;&#10;• Fixed mouse cursor being blocked in building menus, road tools and zone drawing after interacting with the CityForge panel" />
+	<ChangeLog Value="v1.0.17&#10;&#10;BUG FIXES&#10;&#10;• Fixed collapsible sections not working after the v1.0.14 update" />
 	<ExternalLink Type="github" Url="https://github.com/venatorax/CityForge" />
 	<ExternalLink Type="donation" Url="https://paypal.me/venatoraxx" />
 	<AccessLevel Value="Public" />

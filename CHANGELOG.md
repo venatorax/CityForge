@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.0.17 — Released 2026-04-04
+
+### Bug Fixes
+- Restored missing education distribution and max education features that disappeared in the v1.0.14 update.
+
+---
+
 ## v1.0.16 — Released 2026-04-02
 
 ### Bug Fixes

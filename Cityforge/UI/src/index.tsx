@@ -32,6 +32,13 @@ const OverrideTourists$      = bindValue<boolean>("cheatmod","OverrideTourists",
 const TouristMultiplier$     = bindValue<number> ("cheatmod","TouristMultiplier",      1);
 const MaxHappiness$          = bindValue<boolean>("cheatmod","MaxHappiness",           false);
 const RichCitizens$          = bindValue<boolean>("cheatmod","RichCitizens",           false);
+const MaxEducation$          = bindValue<boolean>("cheatmod","MaxEducation",           false);
+const OverrideEducation$     = bindValue<boolean>("cheatmod","OverrideEducation",      false);
+const EduLevel0$             = bindValue<number> ("cheatmod","EduLevel0",              10);
+const EduLevel1$             = bindValue<number> ("cheatmod","EduLevel1",              20);
+const EduLevel2$             = bindValue<number> ("cheatmod","EduLevel2",              30);
+const EduLevel3$             = bindValue<number> ("cheatmod","EduLevel3",              25);
+const EduLevel4$             = bindValue<number> ("cheatmod","EduLevel4",              15);
 const MaxCompanyEfficiency$  = bindValue<boolean>("cheatmod","MaxCompanyEfficiency",   false);
 const ResetOnNewMap$         = bindValue<boolean>("cheatmod","ResetOnNewMap",          true);
 const BuildingLevelAvailable$ = bindValue<boolean>("cheatmod","BuildingLevelAvailable", false);
@@ -56,6 +63,14 @@ const KEYS = {
   tourists:"CheatMod.OPTION[Tourists]",touristMult:"CheatMod.LABEL[TouristMult]",
   maxHappiness:"CheatMod.OPTION[MaxHappiness]",
   richCitizens:"CheatMod.OPTION[RichCitizens]",
+  maxEducation:"CheatMod.OPTION[MaxEducation]",
+  infoMaxEducation:"CheatMod.INFO[MaxEducation]",
+  overrideEducation:"CheatMod.OPTION[OverrideEducation]",
+  eduUneducated:"CheatMod.LEVEL[Uneducated]",
+  eduPoorly:"CheatMod.LEVEL[PoorlyEducated]",
+  eduEducated:"CheatMod.LEVEL[Educated]",
+  eduWell:"CheatMod.LEVEL[WellEducated]",
+  eduHighly:"CheatMod.LEVEL[HighlyEducated]",
   buildings:"CheatMod.SECTION[Buildings]",
   upgradeAll:"CheatMod.ACTION[UpgradeAll]",
   fillStorage:"CheatMod.ACTION[FillStorage]",
@@ -93,6 +108,7 @@ const EN: Record<string,string> = {
   [KEYS.tourists]:"Boost Tourists",[KEYS.touristMult]:"Tourist Multiplier",
   [KEYS.maxHappiness]:"Max Citizen Happiness",
   [KEYS.richCitizens]:"Rich Citizens",
+  [KEYS.maxEducation]:"Max Education",[KEYS.infoMaxEducation]:"All citizens have maximum education (Level 4)",[KEYS.overrideEducation]:"Education Distribution",[KEYS.eduUneducated]:"Uneducated",[KEYS.eduPoorly]:"Poorly Educated",[KEYS.eduEducated]:"Educated",[KEYS.eduWell]:"Well Educated",[KEYS.eduHighly]:"Highly Educated",
   [KEYS.buildings]:"Buildings",
   [KEYS.buildingTargetLevel]:"Target Level",
   [KEYS.upgradeAll]:"Upgrade All Buildings to Level",
@@ -163,6 +179,7 @@ const FR: Record<string,string> = {
   [KEYS.tourists]:"Augmenter les touristes",[KEYS.touristMult]:"Multiplicateur de touristes",
   [KEYS.maxHappiness]:"Bonheur maximum",
   [KEYS.richCitizens]:"Citoyens riches",
+  [KEYS.maxEducation]:"Éducation maximale",[KEYS.infoMaxEducation]:"Tous les citoyens ont une éducation maximale (Niveau 4)",[KEYS.overrideEducation]:"Répartition de l'éducation",[KEYS.eduUneducated]:"Sans éducation",[KEYS.eduPoorly]:"Peu éduqué",[KEYS.eduEducated]:"Éduqué",[KEYS.eduWell]:"Bien éduqué",[KEYS.eduHighly]:"Très éduqué",
   [KEYS.buildings]:"B\u00e2timents",
   [KEYS.upgradeAll]:"Tout upgrader au niveau",
   [KEYS.fillStorage]:"Remplir le stockage",
@@ -197,6 +214,7 @@ const ES: Record<string,string> = {
   [KEYS.tourists]:"Aumentar turistas",[KEYS.touristMult]:"Multiplicador de turistas",
   [KEYS.maxHappiness]:"Felicidad m\u00e1xima ciudadana",
   [KEYS.richCitizens]:"Ciudadanos ricos",
+  [KEYS.maxEducation]:"Educación máxima",[KEYS.infoMaxEducation]:"Todos los ciudadanos tienen educación máxima (Nivel 4)",[KEYS.overrideEducation]:"Distribución educativa",[KEYS.eduUneducated]:"Sin educación",[KEYS.eduPoorly]:"Poco educado",[KEYS.eduEducated]:"Educado",[KEYS.eduWell]:"Bien educado",[KEYS.eduHighly]:"Altamente educado",
   [KEYS.buildings]:"Edificios",
   [KEYS.upgradeAll]:"Mejorar todo al nivel",
   [KEYS.fillStorage]:"Llenar almac\u00e9n",
@@ -231,6 +249,7 @@ const IT: Record<string,string> = {
   [KEYS.tourists]:"Aumenta turisti",[KEYS.touristMult]:"Moltiplicatore turisti",
   [KEYS.maxHappiness]:"Felicit\u00e0 massima",
   [KEYS.richCitizens]:"Cittadini ricchi",
+  [KEYS.maxEducation]:"Istruzione massima",[KEYS.infoMaxEducation]:"Tutti i cittadini hanno istruzione massima (Livello 4)",[KEYS.overrideEducation]:"Distribuzione istruzione",[KEYS.eduUneducated]:"Non istruito",[KEYS.eduPoorly]:"Poco istruito",[KEYS.eduEducated]:"Istruito",[KEYS.eduWell]:"Ben istruito",[KEYS.eduHighly]:"Altamente istruito",
   [KEYS.buildings]:"Edifici",
   [KEYS.upgradeAll]:"Tutto al livello",
   [KEYS.fillStorage]:"Riempi magazzino",
@@ -333,6 +352,7 @@ const PL: Record<string,string> = {
   [KEYS.tourists]:"Zwi\u0119ksz turyst\u00f3w",[KEYS.touristMult]:"Mno\u017cnik turyst\u00f3w",
   [KEYS.maxHappiness]:"Maks. szcz\u0119\u015bcie obywateli",
   [KEYS.richCitizens]:"Bogaci obywatele",
+  [KEYS.maxEducation]:"Maksymalna edukacja",[KEYS.infoMaxEducation]:"Wszyscy obywatele mają maksymalną edukację (Poziom 4)",[KEYS.overrideEducation]:"Rozkład edukacji",[KEYS.eduUneducated]:"Bez wykształcenia",[KEYS.eduPoorly]:"Słabo wykształcony",[KEYS.eduEducated]:"Wykształcony",[KEYS.eduWell]:"Dobrze wykształcony",[KEYS.eduHighly]:"Wysoko wykształcony",
   [KEYS.buildings]:"Budynki",
   [KEYS.upgradeAll]:"Ulepsz wszystko do poziomu",
   [KEYS.fillStorage]:"Wype\u0142nij magazyn",
@@ -435,6 +455,7 @@ const ZH_HANS: Record<string,string> = {
   [KEYS.tourists]:"\u589e\u52a0\u6e38\u5ba2",[KEYS.touristMult]:"\u6e38\u5ba2\u500d\u7387",
   [KEYS.maxHappiness]:"\u5e02\u6c11\u5e78\u798f\u5ea6\u6700\u5927",
   [KEYS.richCitizens]:"\u5bcc\u88d5\u5e02\u6c11",
+  [KEYS.maxEducation]:"\u6700\u9ad8\u6559\u80b2\u6c34\u5e73",[KEYS.infoMaxEducation]:"\u6240\u6709\u5e02\u6c11\u5747\u62e5\u6709\u6700\u9ad8\u6559\u80b2\u7a0b\u5ea6\uff08\u7b49\u7ea74\uff09",[KEYS.overrideEducation]:"\u6559\u80b2\u5206\u5e03",[KEYS.eduUneducated]:"\u672a\u53d7\u6559\u80b2",[KEYS.eduPoorly]:"\u5c11\u53d7\u6559\u80b2",[KEYS.eduEducated]:"\u53d7\u6559\u80b2",[KEYS.eduWell]:"\u53d7\u826f\u597d\u6559\u80b2",[KEYS.eduHighly]:"\u9ad8\u5ea6\u53d7\u6559\u80b2",
   [KEYS.buildings]:"\u5efa\u7b51",
   [KEYS.upgradeAll]:"\u5168\u90e8\u5347\u81f3Lv",
   [KEYS.fillStorage]:"\u586b\u6ee1\u4ed3\u5e93",
@@ -469,6 +490,7 @@ const ZH_HANT: Record<string,string> = {
   [KEYS.tourists]:"\u589e\u52a0\u904a\u5ba2",[KEYS.touristMult]:"\u904a\u5ba2\u500d\u7387",
   [KEYS.maxHappiness]:"\u5e02\u6c11\u5e78\u798f\u5ea6\u6700\u5927",
   [KEYS.richCitizens]:"\u5bcc\u88d5\u5e02\u6c11",
+  [KEYS.maxEducation]:"\u6700\u9ad8\u6559\u80b2\u6c34\u6e96",[KEYS.infoMaxEducation]:"\u6240\u6709\u5e02\u6c11\u5747\u64c1\u6709\u6700\u9ad8\u6559\u80b2\u7a0b\u5ea6\uff08\u7b49\u7d484\uff09",[KEYS.overrideEducation]:"\u6559\u80b2\u5206\u4f48",[KEYS.eduUneducated]:"\u672a\u53d7\u6559\u80b2",[KEYS.eduPoorly]:"\u5c11\u53d7\u6559\u80b2",[KEYS.eduEducated]:"\u53d7\u6559\u80b2",[KEYS.eduWell]:"\u53d7\u826f\u597d\u6559\u80b2",[KEYS.eduHighly]:"\u9ad8\u5ea6\u53d7\u6559\u80b2",
   [KEYS.buildings]:"\u5efa\u7bc9",
   [KEYS.upgradeAll]:"\u5168\u90e8\u5347\u81f3Lv",
   [KEYS.fillStorage]:"\u586b\u6eff\u5009\u5eab",
@@ -743,8 +765,8 @@ function ConstructionSection({t,instantConstruction,speedIndex,trig}:{t:(k:strin
   );
 }
 
-function PopulationSection({t,overrideMoveIn,moveInMult,overrideTourists,touristMult,maxHappiness,richCitizens,trig}:{
-  t:(k:string)=>string;overrideMoveIn:boolean;moveInMult:number;overrideTourists:boolean;touristMult:number;maxHappiness:boolean;richCitizens:boolean;trig:(name:string,...args:unknown[])=>void;
+function PopulationSection({t,overrideMoveIn,moveInMult,overrideTourists,touristMult,maxHappiness,richCitizens,maxEducation,overrideEducation,eduLevel0,eduLevel1,eduLevel2,eduLevel3,eduLevel4,trig}:{
+  t:(k:string)=>string;overrideMoveIn:boolean;moveInMult:number;overrideTourists:boolean;touristMult:number;maxHappiness:boolean;richCitizens:boolean;maxEducation:boolean;overrideEducation:boolean;eduLevel0:number;eduLevel1:number;eduLevel2:number;eduLevel3:number;eduLevel4:number;trig:(name:string,...args:unknown[])=>void;
 }) {
   return (
     <Section icon={<IconPeople/>} title={t(KEYS.population)}>
@@ -760,6 +782,19 @@ function PopulationSection({t,overrideMoveIn,moveInMult,overrideTourists,tourist
       <Divider/>
       <ToggleRow label={t(KEYS.richCitizens)} value={richCitizens} onChange={v=>trig("SetRichCitizens",v)}/>
       {richCitizens&&(<div style={{fontSize:"10rem",color:C.gold,background:"rgba(200,168,75,0.08)",border:"1px solid rgba(200,168,75,0.20)",borderRadius:"4rem",padding:"4rem 8rem",textAlign:"center"}}>{t(KEYS.infoRichCitizens)}</div>)}
+      <Divider/>
+      <ToggleRow label={t(KEYS.maxEducation)} value={maxEducation} onChange={v=>trig("SetMaxEducation",v)}/>
+      {maxEducation&&(<div style={{fontSize:"10rem",color:C.gold,background:"rgba(200,168,75,0.08)",border:"1px solid rgba(200,168,75,0.20)",borderRadius:"4rem",padding:"4rem 8rem",textAlign:"center"}}>{t(KEYS.infoMaxEducation)}</div>)}
+      <Divider/>
+      <ToggleRow label={t(KEYS.overrideEducation)} value={overrideEducation} onChange={v=>trig("SetOverrideEducation",v)}/>
+      {overrideEducation&&(<div style={{paddingTop:"4rem"}}>
+        <Slider value={eduLevel0} label={t(KEYS.eduUneducated)} min={0} max={100} onChange={v=>trig("SetEduLevel0",v)}/>
+        <Slider value={eduLevel1} label={t(KEYS.eduPoorly)} min={0} max={100} onChange={v=>trig("SetEduLevel1",v)}/>
+        <Slider value={eduLevel2} label={t(KEYS.eduEducated)} min={0} max={100} onChange={v=>trig("SetEduLevel2",v)}/>
+        <Slider value={eduLevel3} label={t(KEYS.eduWell)} min={0} max={100} onChange={v=>trig("SetEduLevel3",v)}/>
+        <Slider value={eduLevel4} label={t(KEYS.eduHighly)} min={0} max={100} onChange={v=>trig("SetEduLevel4",v)}/>
+        <div style={{fontSize:"10rem",color:C.textMuted,textAlign:"center" as const,marginTop:"4rem"}}>{`${eduLevel0}+${eduLevel1}+${eduLevel2}+${eduLevel3}+${eduLevel4} = ${eduLevel0+eduLevel1+eduLevel2+eduLevel3+eduLevel4}`}</div>
+      </div>)}
     </Section>
   );
 }
@@ -868,6 +903,13 @@ function CityForgePanel() {
   const touristMult           =useValue(TouristMultiplier$);
   const maxHappiness          =useValue(MaxHappiness$);
   const richCitizens          =useValue(RichCitizens$);
+  const maxEducation          =useValue(MaxEducation$);
+  const overrideEducation     =useValue(OverrideEducation$) as boolean;
+  const eduLevel0             =useValue(EduLevel0$) as number;
+  const eduLevel1             =useValue(EduLevel1$) as number;
+  const eduLevel2             =useValue(EduLevel2$) as number;
+  const eduLevel3             =useValue(EduLevel3$) as number;
+  const eduLevel4             =useValue(EduLevel4$) as number;
   const maxCompanyEfficiency  =useValue(MaxCompanyEfficiency$);
   const resetOnNewMap         =useValue(ResetOnNewMap$);
   const buildingLevelAvailable=useValue(BuildingLevelAvailable$);
@@ -978,7 +1020,7 @@ function CityForgePanel() {
                 <ConstructionSection t={t} instantConstruction={instantConstruction} speedIndex={constructionSpeedIndex} trig={trig}/>
               </div>
               <div style={S()}>
-                <PopulationSection t={t} overrideMoveIn={overrideMoveIn} moveInMult={moveInMult} overrideTourists={overrideTourists} touristMult={touristMult} maxHappiness={maxHappiness} richCitizens={richCitizens} trig={trig}/>
+                <PopulationSection t={t} overrideMoveIn={overrideMoveIn} moveInMult={moveInMult} overrideTourists={overrideTourists} touristMult={touristMult} maxHappiness={maxHappiness} richCitizens={richCitizens} maxEducation={maxEducation} overrideEducation={overrideEducation} eduLevel0={eduLevel0} eduLevel1={eduLevel1} eduLevel2={eduLevel2} eduLevel3={eduLevel3} eduLevel4={eduLevel4} trig={trig}/>
               </div>
             </div>
           </div>
@@ -988,7 +1030,7 @@ function CityForgePanel() {
             <div style={S()}><Section icon={<IconTree/>} title={t(KEYS.devTree)}><Btn variant="purple" fullWidth onClick={()=>trig("AddDevPoints")}>{t(KEYS.addPoints)}</Btn></Section></div>
             <div style={S()}><BuildingsSection t={t} maxCompanyEfficiency={maxCompanyEfficiency} resetOnNewMap={resetOnNewMap} buildingLevelAvailable={buildingLevelAvailable} buildingTargetLevel={buildingTargetLevel} keepStorageFull={keepStorageFull} trig={trig}/></div>
             <div style={S()}><ConstructionSection t={t} instantConstruction={instantConstruction} speedIndex={constructionSpeedIndex} trig={trig}/></div>
-            <div style={S()}><PopulationSection t={t} overrideMoveIn={overrideMoveIn} moveInMult={moveInMult} overrideTourists={overrideTourists} touristMult={touristMult} maxHappiness={maxHappiness} richCitizens={richCitizens} trig={trig}/></div>
+            <div style={S()}><PopulationSection t={t} overrideMoveIn={overrideMoveIn} moveInMult={moveInMult} overrideTourists={overrideTourists} touristMult={touristMult} maxHappiness={maxHappiness} richCitizens={richCitizens} maxEducation={maxEducation} overrideEducation={overrideEducation} eduLevel0={eduLevel0} eduLevel1={eduLevel1} eduLevel2={eduLevel2} eduLevel3={eduLevel3} eduLevel4={eduLevel4} trig={trig}/></div>
           </div>
         )}
 

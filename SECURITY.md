@@ -2,7 +2,8 @@
 ## Supported Versions
 | Version | Supported |
 | ------- | --------- |
-| 1.0.16  | ✅ |
+| 1.0.17  | ✅ |
+| 1.0.16  | ❌ |
 | < 1.0.16 | ❌ |
 ## Reporting a Vulnerability
 If you find a security issue, please **do not** open a public GitHub issue.

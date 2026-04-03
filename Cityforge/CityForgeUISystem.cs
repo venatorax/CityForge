@@ -50,8 +50,10 @@ namespace CityForge
         private ValueBinding<bool> _maxCompanyEfficiency;
         private ValueBinding<bool> _resetOnNewMap;
         private ValueBinding<bool> _buildingLevelAvailable;
+        private ValueBinding<int>  _buildingTargetLevel;
         private ValueBinding<bool> _keepStorageFull;
         private ValueBinding<string> _panelBgColor;
+        private ValueBinding<int>  _devPointsAmount;
 
         protected override void OnCreate()
         {
@@ -96,8 +98,10 @@ namespace CityForge
             AddBinding(_maxCompanyEfficiency = new ValueBinding<bool>(MOD, "MaxCompanyEfficiency", s.MaxCompanyEfficiency));
             AddBinding(_resetOnNewMap = new ValueBinding<bool>(MOD, "ResetOnNewMap", s.ResetOnNewMap));
             AddBinding(_buildingLevelAvailable = new ValueBinding<bool>(MOD, "BuildingLevelAvailable", false));
+            AddBinding(_buildingTargetLevel = new ValueBinding<int>(MOD, "BuildingTargetLevel", 5));
             AddBinding(_keepStorageFull = new ValueBinding<bool>(MOD, "KeepStorageFull", false));
             AddBinding(_panelBgColor = new ValueBinding<string>(MOD, "PanelBgColor", s.PanelBgColor ?? "#121418"));
+            AddBinding(_devPointsAmount = new ValueBinding<int>(MOD, "DevPointsAmount", 228));
 
             AddBinding(new TriggerBinding(MOD, "TogglePanel", () => _panelVisible.Update(!_panelVisible.value)));
             AddBinding(new TriggerBinding<bool>(MOD, "SetPanelVisible", v => _panelVisible.Update(v)));
@@ -129,7 +133,11 @@ namespace CityForge
             }));
 
             AddBinding(new TriggerBinding(MOD, "AddDevPoints", () =>
-                CityForgeSystem.Instance?.RequestAddDevTreePoints()));
+                CityForgeSystem.Instance?.RequestAddDevTreePoints(_devPointsAmount.value)));
+            AddBinding(new TriggerBinding<int>(MOD, "SetDevPointsAmount", v =>
+                _devPointsAmount.Update(Math.Max(0, Math.Min(99999, v)))));
+            AddBinding(new TriggerBinding(MOD, "UnlockAllDevTree", () =>
+                CityForgeSystem.Instance?.RequestUnlockAllDevTree()));
 
             AddBinding(new TriggerBinding<bool>(MOD, "SetOverrideRes", v => UpdateAndSave(_overrideRes, v, val => Mod.Setting.OverrideResidentialDemand = val)));
             AddBinding(new TriggerBinding<int>(MOD, "SetResLow", v => UpdateAndSave(_resLow, v, val => Mod.Setting.ResidentialDemandLow = val)));
@@ -185,6 +193,14 @@ namespace CityForge
 
             AddBinding(new TriggerBinding(MOD, "UpgradeAllBuildings", () =>
                 CityForgeSystem.Instance?.RequestUpgradeAllBuildings()));
+            AddBinding(new TriggerBinding<int>(MOD, "SetBuildingTargetLevel", v =>
+            {
+                int clamped = Math.Max(1, Math.Min(5, v));
+                _buildingTargetLevel.Update(clamped);
+                CityForgeSystem.Instance?.RequestSetBuildingTargetLevel(clamped);
+            }));
+            AddBinding(new TriggerBinding(MOD, "UnlockAllMapTiles", () =>
+                CityForgeSystem.Instance?.RequestUnlockAllMapTiles()));
             AddBinding(new TriggerBinding(MOD, "FillStorage", () =>
                 CityForgeSystem.Instance?.RequestFillStorage()));
             AddBinding(new TriggerBinding<bool>(MOD, "SetKeepStorageFull", v =>
@@ -261,6 +277,7 @@ namespace CityForge
             _eduLevel4.Update(s.EduLevel4);
             _maxCompanyEfficiency.Update(s.MaxCompanyEfficiency);
             _keepStorageFull.Update(false);
+            _buildingTargetLevel.Update(5);
         }
 
         protected override void OnUpdate()
