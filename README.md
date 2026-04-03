@@ -16,7 +16,7 @@ Money, milestones, demand, construction, citizens, buildings, storage and more �
 - 👥 **Citizens & Tourism** — boost move-in rate and tourists, max happiness, rich citizens, max education, education distribution
 - 🏢 **Buildings** — upgrade all buildings to a chosen level (1–5), max company efficiency
 - 📦 **Storage** — fill all storage instantly or keep it permanently full
-- 🎨 **Appearance** — customize the panel background color with presets or a custom hex value
+- 🎨 **Appearance** — customize the panel background color with presets or a custom hex value; all sections are collapsible so you only see what you need
 - 🏅 **Achievements** — keep achievements enabled even when mods are active
 - 💾 All settings save automatically and restore between sessions
 - 🌍 Fully translated into 12 languages
