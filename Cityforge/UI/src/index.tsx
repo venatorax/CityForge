@@ -709,13 +709,15 @@ function DemandBlock({t,label,override,onToggle,forceBuild,onForceBuild,forceBui
 }
 
 function Section({icon,title,children}:{icon:React.ReactNode;title:string;children:React.ReactNode;}) {
+  const [open,setOpen]=useState(true);
   return (
     <div style={{borderRadius:"7rem",border:`1px solid ${C.border}`,background:C.bgSection,overflow:"hidden"}}>
-      <div style={{display:"flex",alignItems:"center",padding:"7rem 12rem 6rem",borderBottom:`1px solid ${C.border}`,gap:"0"}}>
+      <div onClick={()=>setOpen(o=>!o)} style={{display:"flex",alignItems:"center",padding:"7rem 12rem 6rem",borderBottom:open?`1px solid ${C.border}`:"none",gap:"0",cursor:"pointer",userSelect:"none" as const}}>
         <div style={{flexShrink:0,opacity:0.7,display:"flex",alignItems:"center",marginRight:"10rem"}}>{icon}</div>
-        <span style={{fontSize:"11rem",fontWeight:600,color:C.textSecond,letterSpacing:"0.10em"}}>{title.toUpperCase()}</span>
+        <span style={{fontSize:"11rem",fontWeight:600,color:C.textSecond,letterSpacing:"0.10em",flex:1}}>{title.toUpperCase()}</span>
+        <svg viewBox="0 0 10 6" width="9" height="9" style={{marginLeft:"auto",flexShrink:0,transition:"transform 0.18s",transform:open?"rotate(0deg)":"rotate(-90deg)"}}><polyline points="1,1 5,5 9,1" fill="none" stroke={C.textMuted} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
       </div>
-      <div style={{padding:"10rem 12rem",display:"flex",flexDirection:"column" as const,gap:"8rem"}}>{children}</div>
+      {open&&<div style={{padding:"10rem 12rem",display:"flex",flexDirection:"column" as const,gap:"8rem"}}>{children}</div>}
     </div>
   );
 }
