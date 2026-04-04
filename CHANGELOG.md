@@ -7,14 +7,14 @@
 
 ---
 
-## v1.0.16 — Released 2026-04-02
+## v1.0.16 — Released 2026-04-03
 
 ### Bug Fixes
 - Fixed collapsible sections not working after the v1.0.14 update.
 
 ---
 
-## v1.0.15 — Released 2026-04-02
+## v1.0.15 — Released 2026-04-03
 
 ### Bug Fixes
 - Fixed mouse cursor being blocked in building menus, road tools and zone drawing after interacting with the CityForge panel.
